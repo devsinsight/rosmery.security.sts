@@ -34,8 +34,12 @@ namespace Rosmery.Security.Api
                 app.UseDeveloperExceptionPage();
             }
             AuthAppConfiguration.Add(app);
+
+            InitializeDatabase(app);
             app.UseMvc();
         }
+
+        #region Init Demo Data
 
         private static IEnumerable<IdentityResource> GetIdentityResources()
         {
@@ -70,7 +74,7 @@ namespace Rosmery.Security.Api
         {
             return new List<ApiResource>
             {
-                new ApiResource("api1", "My API")
+                new ApiResource("rosmeryApi", "Rosmery API")
             };
         }
 
@@ -108,5 +112,7 @@ namespace Rosmery.Security.Api
                 }
             }
         }
+
+        #endregion
     }
 }
