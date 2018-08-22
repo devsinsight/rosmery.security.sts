@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Rosmery.Security.ApiCore.Data;
 using Rosmery.Security.Core.Configuration;
 
-namespace Rosmery.Security.ApiCore
+namespace Rosmery.Security.ApiModule
 {
     public class Startup
     {
@@ -18,24 +18,22 @@ namespace Rosmery.Security.ApiCore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             IdentityServiceConfiguration.Add(services, Configuration);
 
-            services
-                .AddMvcCore()
-                .AddAuthorization()
-                .AddJsonFormatters();
-            
-            IdentityServer4ServiceConfiguration.Add(services, Configuration);
+            services.AddMvcCore()
+                    .AddAuthorization()
+                    .AddJsonFormatters();
+
+            IdentityServer4AccessTokenValidationServiceConfiguration.Add(services, Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            IdentityServer4AppConfiguration.Add(app);
-
-            TestData.InitializeDatabase(app);
+            app.UseAuthentication();
 
             app.UseMvc();
         }
-
     }
 }

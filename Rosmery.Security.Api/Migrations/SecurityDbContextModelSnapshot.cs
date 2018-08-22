@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rosmery.Security.Core.DatabaseContext;
 
-namespace Rosmery.Security.Api.Migrations
+namespace Rosmery.Security.ApiCore.Migrations
 {
     [DbContext(typeof(SecurityDbContext))]
     partial class SecurityDbContextModelSnapshot : ModelSnapshot

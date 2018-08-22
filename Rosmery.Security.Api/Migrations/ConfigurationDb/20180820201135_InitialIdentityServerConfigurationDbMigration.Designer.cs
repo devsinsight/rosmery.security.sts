@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Rosmery.Security.Api.Migrations.ConfigurationDb
+namespace Rosmery.Security.ApiCore.Migrations.ConfigurationDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
     [Migration("20180820201135_InitialIdentityServerConfigurationDbMigration")]

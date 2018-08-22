@@ -3,17 +3,18 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:55686/",
-      "sslPort": 0
+      "applicationUrl": "http://localhost:5001",
+      "sslPort": 44390
     }
   },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "Rosmery.Security.ApiCore": {
+    "Rosmery.Security.ApiModule": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5000/"
+      "applicationUrl": "http://localhost:5001"
     }
   }
 }

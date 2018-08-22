@@ -1,0 +1,19 @@
+﻿Restoring packages for C:\rosmery-website\rosmery-security\Rosmery.Security.Api\Rosmery.Security.Api.csproj...
+  GET https://api.nuget.org/v3-flatcontainer/serilog.sinks.console/index.json
+  OK https://api.nuget.org/v3-flatcontainer/serilog.sinks.console/index.json 939ms
+  GET https://api.nuget.org/v3-flatcontainer/serilog.sinks.console/3.1.1/serilog.sinks.console.3.1.1.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/serilog.sinks.console/3.1.1/serilog.sinks.console.3.1.1.nupkg 673ms
+Installing Serilog.Sinks.Console 3.1.1.
+Installing NuGet package Serilog.Sinks.Console 3.1.1.
+Committing restore...
+Writing lock file to disk. Path: C:\rosmery-website\rosmery-security\Rosmery.Security.Api\obj\project.assets.json
+Restore completed in 3.25 sec for C:\rosmery-website\rosmery-security\Rosmery.Security.Api\Rosmery.Security.Api.csproj.
+Successfully installed 'Serilog.Sinks.Console 3.1.1' to Rosmery.Security.Api
+Executing nuget actions took 2.68 sec
+Time Elapsed: 00:00:06.0063354
+========== Finished ==========
+
+Restoring NuGet packages...
+Time Elapsed: 00:00:01.4327092
+========== Finished ==========
+

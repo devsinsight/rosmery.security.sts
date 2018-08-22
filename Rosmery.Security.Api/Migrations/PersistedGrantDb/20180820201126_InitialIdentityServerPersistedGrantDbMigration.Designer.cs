@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Rosmery.Security.Api.Migrations.PersistedGrantDb
+namespace Rosmery.Security.ApiCore.Migrations.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
     [Migration("20180820201126_InitialIdentityServerPersistedGrantDbMigration")]

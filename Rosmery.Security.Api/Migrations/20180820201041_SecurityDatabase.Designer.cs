@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rosmery.Security.Core.DatabaseContext;
 
-namespace Rosmery.Security.Api.Migrations
+namespace Rosmery.Security.ApiCore.Migrations
 {
     [DbContext(typeof(SecurityDbContext))]
     [Migration("20180820201041_SecurityDatabase")]
