@@ -5,13 +5,10 @@ using Rosmery.Security.Core.IdentityModels;
 
 namespace Rosmery.Security.Core.Configuration
 {
-    public class IdentityServer4ServiceConfiguration
+    public static class IdentityServer4ServiceConfiguration
     {
-        public static void Add(IServiceCollection services, IConfiguration config)
+        public static void AddIdentityServerServiceConfiguration(this IServiceCollection services, string assemblyName, string connectionString, string securitySchema)
         {
-            var assemblyName = "Rosmery.Security.ApiCore";
-            var connectionString = config.GetConnectionString("SecurityDbConnection");
-            var securitySchemaName = "Security";
 
             services.AddIdentityServer()
                 .AddConfigurationStore(options =>
@@ -19,14 +16,14 @@ namespace Rosmery.Security.Core.Configuration
                     options.ConfigureDbContext = builder =>
                         builder.UseSqlServer(connectionString,
                             sql => sql.MigrationsAssembly(assemblyName));
-                    options.DefaultSchema = securitySchemaName;
+                    options.DefaultSchema = securitySchema;
                 })
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
                         builder.UseSqlServer(connectionString,
                             sql => sql.MigrationsAssembly(assemblyName));
-                    options.DefaultSchema = securitySchemaName;
+                    options.DefaultSchema = securitySchema;
 
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;

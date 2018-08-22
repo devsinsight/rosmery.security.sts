@@ -8,14 +8,11 @@ using Rosmery.Security.Core.IdentityModels;
 
 namespace Rosmery.Security.Core.Configuration
 {
-    public class IdentityServiceConfiguration
+    public static class IdentityServiceConfiguration
     {
 
-        public static void Add(IServiceCollection services, IConfiguration config)
+        public static void AddIdentityConfiguration(this IServiceCollection services, string assemblyName, string connectionString)
         {
-            var assemblyName = "Rosmery.Security.ApiCore";
-            var connectionString = config.GetConnectionString("SecurityDbConnection");
-
             services
                 .AddDbContext<SecurityDbContext>(options =>
                     options.UseSqlServer(connectionString,

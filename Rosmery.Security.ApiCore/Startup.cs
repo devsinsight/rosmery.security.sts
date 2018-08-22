@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rosmery.Security.ApiCore.Data;
 using Rosmery.Security.Core.Configuration;
+using System.Reflection;
 
 namespace Rosmery.Security.ApiCore
 {
@@ -18,19 +19,22 @@ namespace Rosmery.Security.ApiCore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            IdentityServiceConfiguration.Add(services, Configuration);
+            var assemblyName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            var connectionString = Configuration.GetConnectionString("SecurityDbConnection");
+
+            services.AddIdentityConfiguration(assemblyName, connectionString);
 
             services
                 .AddMvcCore()
                 .AddAuthorization()
                 .AddJsonFormatters();
             
-            IdentityServer4ServiceConfiguration.Add(services, Configuration);
+            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString,"Security");
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            IdentityServer4AppConfiguration.Add(app);
+            app.AddIdentityServerAppConfiguration();
 
             TestData.InitializeDatabase(app);
 

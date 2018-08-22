@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Rosmery.Security.Core.Configuration
+namespace Rosmery.Security.ApiModule.IdentityServer
 {
-    public class IdentityServer4AccessTokenValidationServiceConfiguration
+    public static class AccessTokenValidationServiceConfiguration
     {
-        public static void Add(IServiceCollection services, IConfiguration config)
+        public static void AddAccessTokenValidationServiceConfiguration(this IServiceCollection services)
         {
             services.AddAuthentication(options =>
                     {

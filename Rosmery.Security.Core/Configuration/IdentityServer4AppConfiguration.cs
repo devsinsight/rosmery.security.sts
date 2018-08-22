@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace Rosmery.Security.Core.Configuration
 {
-    public class IdentityServer4AppConfiguration
+    public static class IdentityServer4AppConfiguration
     {
-        public static void Add(IApplicationBuilder app)
+        public static void AddIdentityServerAppConfiguration(this IApplicationBuilder app)
         {
             app.UseIdentityServer();
         }

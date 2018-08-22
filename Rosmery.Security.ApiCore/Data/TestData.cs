@@ -30,23 +30,6 @@ namespace Rosmery.Security.ApiCore.Data
             };
         }
 
-        private static IEnumerable<Scope> GetScopes() {
-            return new List<Scope>
-            {
-                new Scope
-                {
-                    Name = "rosmery-security",
-                    DisplayName = "Rosmery Security",
-                    Description = "Rosmery Security Scope",
-                    UserClaims =
-                    {
-                        "name",
-                        "role"
-                    }
-                }
-            };
-        }
-
         private static IEnumerable<Client> GetClients()
         {
             return new List<Client>
@@ -85,24 +68,7 @@ namespace Rosmery.Security.ApiCore.Data
                         StandardScopes.Profile,
                         "rosmery-website"
                     }
-                },
-                new Client
-                {
-                    ClientId = "ariana-website",
-                    ClientName = "Ariana Website",
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AllowAccessTokensViaBrowser = true,
-                    ClientSecrets =
-                    {
-                        new Secret("ariana-website-secret".Sha256())
-                    },
-                    AllowedScopes =
-                    {
-                        StandardScopes.OpenId,
-                        StandardScopes.Profile,
-                        "ariana-website"
-                    }
-                }
+                } 
             };
         }
 
@@ -111,8 +77,7 @@ namespace Rosmery.Security.ApiCore.Data
             return new List<ApiResource>
             {
                 new ApiResource("rosmery-security", "Rosmery Security", new[] { "name", "role" } ),
-                new ApiResource("rosmery-website", "Rosmery Website" ),
-                new ApiResource("ariana-website", "Ariana Website" )
+                new ApiResource("rosmery-website", "Rosmery Website", new[] { "name", "role" } ),
             };
         }
 

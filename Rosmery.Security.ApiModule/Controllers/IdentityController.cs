@@ -9,7 +9,7 @@ namespace Rosmery.Security.ApiModule.Controllers
     {
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Security")]
         public IActionResult Get() {
             return new JsonResult(from c in User.Claims select new { c.Type, c.Value });
         }
