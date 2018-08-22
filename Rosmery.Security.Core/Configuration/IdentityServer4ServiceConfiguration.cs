@@ -9,7 +9,7 @@ namespace Rosmery.Security.Core.Configuration
     {
         public static void Add(IServiceCollection services, IConfiguration config)
         {
-            var assemblyName = "Rosmery.Security.Api";
+            var assemblyName = "Rosmery.Security.ApiCore";
             var connectionString = config.GetConnectionString("SecurityDbConnection");
             var securitySchemaName = "Security";
 
