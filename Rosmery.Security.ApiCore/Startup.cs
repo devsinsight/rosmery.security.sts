@@ -29,7 +29,7 @@ namespace Rosmery.Security.ApiCore
                 .AddAuthorization()
                 .AddJsonFormatters();
             
-            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString,"Security", DevelopmentCertification.Get());
+            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString,"Security", DevelopmentCertification.GetFromStore());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
