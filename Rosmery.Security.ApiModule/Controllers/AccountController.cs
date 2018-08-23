@@ -6,6 +6,8 @@ using Rosmery.Security.ApiModule.IdentityServer;
 using Rosmery.Security.Core.IdentityManagers;
 using Rosmery.Security.Core.IdentityModels;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Rosmery.Security.ApiModule.Controllers
 {
@@ -71,6 +73,17 @@ namespace Rosmery.Security.ApiModule.Controllers
                 return Json(tokenResponse.ErrorDescription);
 
             return Json(tokenResponse.Json);
+        }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<ActionResult> Logout([FromHeader]string authorization)
+        {
+            var token = authorization.Split(" ")[1];
+            var disco = await DiscoveryClient.GetAsync(_clientCredentials.SecurityEndpoint);
+            var tokenRevocationClient = new TokenRevocationClient(disco.RevocationEndpoint, _clientCredentials.ClientId, _clientCredentials.ClientSecret);
+
+            return Json(await tokenRevocationClient.RevokeAccessTokenAsync(token));
         }
 
     }

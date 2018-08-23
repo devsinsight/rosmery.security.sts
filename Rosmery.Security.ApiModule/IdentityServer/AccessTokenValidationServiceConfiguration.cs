@@ -19,12 +19,13 @@ namespace Rosmery.Security.ApiModule.IdentityServer
                     {
                         options.Authority = "http://localhost:5000";
                         options.RequireHttpsMetadata = false;
-
+                        options.EnableCaching = false;
                         options.ApiName = "rosmery-security";
                         options.ApiSecret = "rosmery-security-secret";
-                        options.SupportedTokens = SupportedTokens.Both;
+                        options.SupportedTokens = SupportedTokens.Reference;
                         options.NameClaimType = "name";
                         options.RoleClaimType = "role";
+                        
                     });
         }
     }

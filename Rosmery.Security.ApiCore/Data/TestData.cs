@@ -1,15 +1,10 @@
-﻿
-using IdentityModel;
-using IdentityServer4;
-using IdentityServer4.EntityFramework.DbContexts;
+﻿using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using static IdentityServer4.IdentityServerConstants;
 
 namespace Rosmery.Security.ApiCore.Data
@@ -39,6 +34,8 @@ namespace Rosmery.Security.ApiCore.Data
                     ClientId = "rosmery-security",
                     ClientName = "Rosmery Security",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AccessTokenLifetime = 20 * 60,
+                    AccessTokenType = AccessTokenType.Reference,
                     AllowAccessTokensViaBrowser = true,
                     ClientSecrets =
                     {
@@ -57,6 +54,8 @@ namespace Rosmery.Security.ApiCore.Data
                     ClientId = "rosmery-website",
                     ClientName = "Rosmery Website",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AccessTokenLifetime = 20 * 60,
+                    AccessTokenType = AccessTokenType.Reference,
                     AllowAccessTokensViaBrowser = true,
                     ClientSecrets =
                     {
@@ -76,8 +75,14 @@ namespace Rosmery.Security.ApiCore.Data
         {
             return new List<ApiResource>
             {
-                new ApiResource("rosmery-security", "Rosmery Security", new[] { "name", "role" } ),
-                new ApiResource("rosmery-website", "Rosmery Website", new[] { "name", "role" } ),
+                new ApiResource("rosmery-security", "Rosmery Security", new[] { "name", "role" } )
+                {
+                    ApiSecrets = { new Secret("rosmery-security-secret".Sha256()) }
+                },
+                new ApiResource("rosmery-website", "Rosmery Website", new[] { "name", "role" } )
+                {
+                    ApiSecrets = { new Secret("rosmery-website-secret".Sha256()) }
+                },
             };
         }
 
