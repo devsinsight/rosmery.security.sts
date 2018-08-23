@@ -1,13 +1,12 @@
 ﻿using IdentityModel.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Rosmery.Security.ApiModule.Models;
 using Rosmery.Security.ApiModule.IdentityServer;
+using Rosmery.Security.ApiModule.Models;
 using Rosmery.Security.Core.IdentityManagers;
 using Rosmery.Security.Core.IdentityModels;
 using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Rosmery.Security.ApiModule.Controllers
 {

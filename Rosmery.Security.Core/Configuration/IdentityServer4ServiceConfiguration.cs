@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rosmery.Security.Core.IdentityModels;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Rosmery.Security.Core.Configuration
 {
     public static class IdentityServer4ServiceConfiguration
     {
-        public static void AddIdentityServerServiceConfiguration(this IServiceCollection services, string assemblyName, string connectionString, string securitySchema)
+        public static void AddIdentityServerServiceConfiguration(this IServiceCollection services, string assemblyName, string connectionString, string securitySchema, X509Certificate2 certification = null)
         {
 
             services.AddIdentityServer()
@@ -24,11 +24,12 @@ namespace Rosmery.Security.Core.Configuration
                         builder.UseSqlServer(connectionString,
                             sql => sql.MigrationsAssembly(assemblyName));
                     options.DefaultSchema = securitySchema;
-
+                    
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
                 })
-                .AddDeveloperSigningCredential()
+                //.AddDeveloperSigningCredential()   // development environment
+                .AddSigningCredential(certification) // production environment
                 .AddAspNetIdentity<User>();
         }
     }

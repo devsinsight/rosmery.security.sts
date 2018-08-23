@@ -46,6 +46,10 @@ namespace Rosmery.Security.ApiCore.Data
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
                         "rosmery-security"
+                    },
+                    AllowedCorsOrigins =
+                    {
+                        "http://localhost:5001"
                     }
                     
                 },
@@ -66,6 +70,10 @@ namespace Rosmery.Security.ApiCore.Data
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
                         "rosmery-website"
+                    },
+                    AllowedCorsOrigins =
+                    {
+                        "http://localhost:5002"
                     }
                 } 
             };
