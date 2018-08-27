@@ -1,13 +1,23 @@
 ﻿using System.Threading.Tasks;
 using IdentityServer4.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Rosmery.Security.Core.IdentityServerServices
 {
-    public class CorsPolicyService : ICorsPolicyService
+    public class CorsPolicyService : DefaultCorsPolicyService, ICorsPolicyService
     {
-        public Task<bool> IsOriginAllowedAsync(string origin)
+        private readonly ILoggerFactory _loggerFactory;
+
+        public CorsPolicyService(ILoggerFactory loggerFactory) : base(loggerFactory.CreateLogger<DefaultCorsPolicyService>())
         {
-            throw new System.NotImplementedException();
+            _loggerFactory = loggerFactory;
+        }
+
+        public override Task<bool> IsOriginAllowedAsync(string origin)
+        {
+            AllowAll = false;
+
+            return Task.FromResult(false);
         }
     }
 }

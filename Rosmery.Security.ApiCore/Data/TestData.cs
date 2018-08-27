@@ -49,7 +49,7 @@ namespace Rosmery.Security.ApiCore.Data
                     },
                     AllowedCorsOrigins =
                     {
-                        "http://localhost:5001"
+                        "http://localhost:5005"
                     }
                     
                 },
@@ -73,7 +73,7 @@ namespace Rosmery.Security.ApiCore.Data
                     },
                     AllowedCorsOrigins =
                     {
-                        "http://localhost:5002"
+                        "http://localhost:5005"
                     }
                 } 
             };

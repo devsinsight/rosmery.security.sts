@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.ApiModule"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.ApiCore", "Rosmery.Security.ApiCore\Rosmery.Security.ApiCore.csproj", "{D4D5A1B6-A535-4730-A05B-ED1BAF874C28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosmery.Security.UI", "Rosmery.Security.UI\Rosmery.Security.UI.csproj", "{2198B0CC-B97E-4E13-A181-90E47D052023}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D4D5A1B6-A535-4730-A05B-ED1BAF874C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4D5A1B6-A535-4730-A05B-ED1BAF874C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4D5A1B6-A535-4730-A05B-ED1BAF874C28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2198B0CC-B97E-4E13-A181-90E47D052023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2198B0CC-B97E-4E13-A181-90E47D052023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2198B0CC-B97E-4E13-A181-90E47D052023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2198B0CC-B97E-4E13-A181-90E47D052023}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

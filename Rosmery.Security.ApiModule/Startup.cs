@@ -4,18 +4,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rosmery.Security.ApiModule.IdentityServer;
 using Rosmery.Security.Core.Configuration;
+using System;
 using System.Reflection;
 
 namespace Rosmery.Security.ApiModule
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IServiceProvider service)
         {
             Configuration = configuration;
+            Service = service;
         }
 
         public IConfiguration Configuration { get; }
+        public IServiceProvider Service { get;  }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -23,12 +26,14 @@ namespace Rosmery.Security.ApiModule
             var connectionString = Configuration.GetConnectionString("SecurityDbConnection");
 
             services.AddIdentityConfiguration(assemblyName, connectionString);
+
             services.AddSingleton<IClientCredentials, ClientCredentials>();
+
             services.AddMvcCore()
                     .AddAuthorization()
                     .AddJsonFormatters();
 
-            services.AddAccessTokenValidationServiceConfiguration();
+            services.AddAccessTokenValidationServiceConfiguration(new ApiResources(Configuration));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

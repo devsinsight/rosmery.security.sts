@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace Rosmery.Security.Core.Configuration
 {

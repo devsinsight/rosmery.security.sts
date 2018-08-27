@@ -68,10 +68,9 @@ namespace Rosmery.Security.ApiModule.Controllers
             var tokenClient = new TokenClient(disco.TokenEndpoint, _clientCredentials.ClientId, _clientCredentials.ClientSecret);
             var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(model.UserName, model.Password, _clientCredentials.ClientScope);
 
-            if (tokenResponse.IsError)
-                return Json(tokenResponse.ErrorDescription);
-
-            return Json(tokenResponse.Json);
+            return tokenResponse.IsError ? 
+                    Json(tokenResponse.ErrorDescription) : 
+                    Json(tokenResponse.Json);
         }
 
         [HttpPost("logout")]

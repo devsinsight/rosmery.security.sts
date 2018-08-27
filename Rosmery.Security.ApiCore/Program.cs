@@ -5,7 +5,6 @@ using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.IO;
-using System.Net;
 
 namespace Rosmery.Security.ApiCore
 {
@@ -39,6 +38,7 @@ namespace Rosmery.Security.ApiCore
                 //})
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
+            
                 .Build();
 
     }
