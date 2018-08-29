@@ -11,10 +11,14 @@ namespace Rosmery.Security.Core.Configuration
     {
         public static void AddIdentityServerServiceConfiguration(this IServiceCollection services, string assemblyName, string connectionString, string securitySchema, X509Certificate2 certification = null)
         {
-
             services
-                .AddIdentityServer()
-                //.AddCorsPolicyService<CorsPolicyService>()
+                .AddIdentityServer(options =>
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                })
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
@@ -34,7 +38,6 @@ namespace Rosmery.Security.Core.Configuration
                 })
                 //.AddDeveloperSigningCredential()   // development environment
                 .AddSigningCredential(certification) // production environment
-                
                 .AddAspNetIdentity<User>();
         }
     }

@@ -27,9 +27,7 @@ namespace Rosmery.Security.ApiCore
 
             services.AddIdentityConfiguration(assemblyName, connectionString);
 
-            services
-                .AddMvcCore()
-                .AddJsonFormatters();
+            services.AddMvc();
 
             services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security", DevelopmentCertification.GetFromStore());
         }
@@ -37,8 +35,22 @@ namespace Rosmery.Security.ApiCore
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             TestData.InitializeDatabase(app);
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseStaticFiles();
+
             app.AddIdentityServerAppConfiguration();
-            app.UseMvc();
+
+            app.UseMvcWithDefaultRoute();
         }
 
     }

@@ -33,9 +33,11 @@ namespace Rosmery.Security.ApiCore.Data
                 {
                     ClientId = "rosmery-security",
                     ClientName = "Rosmery Security",
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AccessTokenLifetime = 20 * 60,
-                    AccessTokenType = AccessTokenType.Reference,
+                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+                    RequireConsent = false,
+                    IdentityTokenLifetime=120,
+                    AccessTokenLifetime=120,
+                    AccessTokenType = AccessTokenType.Jwt,
                     AllowAccessTokensViaBrowser = true,
                     ClientSecrets =
                     {
@@ -49,33 +51,11 @@ namespace Rosmery.Security.ApiCore.Data
                     },
                     AllowedCorsOrigins =
                     {
-                        "http://localhost:5005"
+                        "http://localhost:4200",
+                        "http://localhost:5001"
                     }
                     
-                },
-                new Client
-                {
-                    ClientId = "rosmery-website",
-                    ClientName = "Rosmery Website",
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AccessTokenLifetime = 20 * 60,
-                    AccessTokenType = AccessTokenType.Reference,
-                    AllowAccessTokensViaBrowser = true,
-                    ClientSecrets =
-                    {
-                        new Secret("rosmery-website-secret".Sha256())
-                    },
-                    AllowedScopes =
-                    {
-                        StandardScopes.OpenId,
-                        StandardScopes.Profile,
-                        "rosmery-website"
-                    },
-                    AllowedCorsOrigins =
-                    {
-                        "http://localhost:5005"
-                    }
-                } 
+                }
             };
         }
 
@@ -86,11 +66,7 @@ namespace Rosmery.Security.ApiCore.Data
                 new ApiResource("rosmery-security", "Rosmery Security", new[] { "name", "role" } )
                 {
                     ApiSecrets = { new Secret("rosmery-security-secret".Sha256()) }
-                },
-                new ApiResource("rosmery-website", "Rosmery Website", new[] { "name", "role" } )
-                {
-                    ApiSecrets = { new Secret("rosmery-website-secret".Sha256()) }
-                },
+                }
             };
         }
 

@@ -1,8 +1,10 @@
-@model ErrorViewModel
+﻿@using Microsoft.AspNetCore.Hosting
+@model Rosmery.Security.ApiCore.Models.ErrorViewModel
+@inject IHostingEnvironment host
 
 @{
     var error = Model?.Error?.Error;
-    var errorDescription = Model?.Error?.ErrorDescription;
+    var errorDescription = host.IsDevelopment() ? Model?.Error?.ErrorDescription : null;
     var request_id = Model?.Error?.RequestId;
 }
 
