@@ -37,7 +37,7 @@ namespace Rosmery.Security.ApiCore.Data
                     RequireConsent = false,
                     IdentityTokenLifetime=120,
                     AccessTokenLifetime=120,
-                    AccessTokenType = AccessTokenType.Jwt,
+                    AccessTokenType = AccessTokenType.Reference,
                     AllowAccessTokensViaBrowser = true,
                     ClientSecrets =
                     {

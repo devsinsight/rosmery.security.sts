@@ -12,32 +12,24 @@ namespace Rosmery.Security.ApiModule.IdentityServer
     {
         public static void AddAccessTokenValidationServiceConfiguration(this IServiceCollection services, IApiResources apiResources)
         {
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
             services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                    .AddIdentityServerAuthentication(options =>
                     {
-                        options.DefaultScheme = "Cookies";
-                        options.DefaultChallengeScheme = "oidc";
-                    })
-                    .AddCookie("Cookies")
-                    .AddOpenIdConnect("oidc", options =>
-                    {
-                        options.SignInScheme = "Cookies";
-
                         options.Authority = apiResources.Authority;
                         options.RequireHttpsMetadata = false;
-                        
-                        options.ClientId = "rosmery-security";
-                        options.ClientSecret = "rosmery-security-secret";
-                        options.ResponseType = "code id_token";
-                        options.SaveTokens = true;
-                        options.GetClaimsFromUserInfoEndpoint = true;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            NameClaimType = "name",
-                            RoleClaimType = "role"
-                        };
-                    }); 
+                        options.EnableCaching = false;
+                        options.ApiName = apiResources.ApiName;
+                        options.ApiSecret = apiResources.ApiSecret;
+                        options.SupportedTokens = SupportedTokens.Reference;
+                        options.NameClaimType = "name";
+                        options.RoleClaimType = "role";
+
+                    });
         }
+    }
     }
 }
