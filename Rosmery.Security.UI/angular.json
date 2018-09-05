@@ -44,7 +44,13 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/callback.html",
+              {
+                  "glob": "**/*.js",
+                  "input": "../node_modules/oidc-client/dist/",
+                  "output": "./"
+              }
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",

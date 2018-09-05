@@ -13,10 +13,10 @@ namespace Rosmery.Security.ApiModule.IdentityServer
         public static void AddAccessTokenValidationServiceConfiguration(this IServiceCollection services, IApiResources apiResources)
         {
             services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+                    {
+                        options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
                     .AddIdentityServerAuthentication(options =>
                     {
                         options.Authority = apiResources.Authority;
@@ -30,6 +30,6 @@ namespace Rosmery.Security.ApiModule.IdentityServer
 
                     });
         }
-    }
+    
     }
 }

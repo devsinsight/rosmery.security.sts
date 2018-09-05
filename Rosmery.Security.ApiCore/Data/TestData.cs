@@ -35,12 +35,13 @@ namespace Rosmery.Security.ApiCore.Data
                     ClientName = "Rosmery Security",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RequireConsent = false,
-                    IdentityTokenLifetime=120,
-                    AccessTokenLifetime=120,
+                    IdentityTokenLifetime=1200,
+                    AccessTokenLifetime=1200,
                     AccessTokenType = AccessTokenType.Reference,
                     AllowAccessTokensViaBrowser = true,
-                    RedirectUris = { "http://localhost:4200/callback.html" },
+                    RedirectUris = { "http://localhost:4200/callback" },
                     PostLogoutRedirectUris = { "http://localhost:4200/index.html" },
+                    
                     ClientSecrets =
                     {
                         new Secret("rosmery-security-secret".Sha256())

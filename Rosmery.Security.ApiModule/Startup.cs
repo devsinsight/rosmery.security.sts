@@ -33,11 +33,18 @@ namespace Rosmery.Security.ApiModule
                     .AddAuthorization()
                     .AddJsonFormatters();
 
+            services.AddCors();
+
             services.AddAccessTokenValidationServiceConfiguration(new ApiResources(Configuration));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
             app.UseAuthentication();
             app.UseMvc();
         }

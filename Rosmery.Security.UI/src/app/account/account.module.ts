@@ -7,6 +7,7 @@ import { CreateRoleComponent } from './role/create-role/create-role.component';
 import { UpdateRoleComponent } from './role/update-role/update-role.component';
 import { AccountRouting } from './account.routing';
 import { AccountComponent } from './account.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { AccountComponent } from './account.component';
     UpdateUserComponent,
     CreateRoleComponent,
     UpdateRoleComponent,
-    AccountComponent]
+    AccountComponent,
+    UnauthorizedComponent]
 })
 export class AccountModule { }

@@ -6,7 +6,8 @@ import { UpdateRoleComponent } from './role/update-role/update-role.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
 import { CreateRoleComponent } from './role/create-role/create-role.component';
 import { AccountComponent } from './account.component';
-import { AuthGuardService } from '../common/auth-guard.service';
+import { AuthGuardService } from '../common/services/auth-guard.service';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 const router: Routes = [
   {
@@ -20,6 +21,7 @@ const router: Routes = [
   { path: 'update-user', component: UpdateUserComponent },
   { path: 'create-role', component: CreateRoleComponent },
   { path: 'update-role', component: UpdateRoleComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent }
 ];
 
 @NgModule({
