@@ -1,0 +1,23 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/Rosmery.Security.STS",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:55686/",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "Rosmery.Security.STS": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:5000/"
+    }
+  }
+}

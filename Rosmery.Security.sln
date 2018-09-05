@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.Core", "Rosmery.Security.Core\Rosmery.Security.Core.csproj", "{E91E3BF2-C9F1-4E25-B13B-966565C8A29E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.ApiModule", "Rosmery.Security.ApiModule\Rosmery.Security.ApiModule.csproj", "{A0FD2938-0DD3-476C-845D-1DF59AB59D99}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.ApiCore", "Rosmery.Security.ApiCore\Rosmery.Security.ApiCore.csproj", "{D4D5A1B6-A535-4730-A05B-ED1BAF874C28}"
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Rosmery.Security.UI", "Rosmery.Security.UI\", "{53286447-D72B-45DC-BE12-8348996AB1E4}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
@@ -27,7 +21,14 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Rosmery.Security.UI", "Rosm
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "50835"
+		SlnRelativePath = "Rosmery.Security.UI\"
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.STS", "Rosmery.Security.STS\Rosmery.Security.STS.csproj", "{955C9652-8773-4FFF-8DED-751C34C10E57}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.API", "Rosmery.Security.API\Rosmery.Security.API.csproj", "{10D68BF3-A6D1-4251-93B8-10D9FC9D42B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosmery.Security.Identity", "Rosmery.Security.Identity\Rosmery.Security.Identity.csproj", "{2E91BF0D-255F-40FE-A27F-D2A7E455BE4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,22 +36,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E91E3BF2-C9F1-4E25-B13B-966565C8A29E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E91E3BF2-C9F1-4E25-B13B-966565C8A29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E91E3BF2-C9F1-4E25-B13B-966565C8A29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E91E3BF2-C9F1-4E25-B13B-966565C8A29E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0FD2938-0DD3-476C-845D-1DF59AB59D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0FD2938-0DD3-476C-845D-1DF59AB59D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0FD2938-0DD3-476C-845D-1DF59AB59D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0FD2938-0DD3-476C-845D-1DF59AB59D99}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4D5A1B6-A535-4730-A05B-ED1BAF874C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4D5A1B6-A535-4730-A05B-ED1BAF874C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4D5A1B6-A535-4730-A05B-ED1BAF874C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4D5A1B6-A535-4730-A05B-ED1BAF874C28}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53286447-D72B-45DC-BE12-8348996AB1E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{53286447-D72B-45DC-BE12-8348996AB1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53286447-D72B-45DC-BE12-8348996AB1E4}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{53286447-D72B-45DC-BE12-8348996AB1E4}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{955C9652-8773-4FFF-8DED-751C34C10E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{955C9652-8773-4FFF-8DED-751C34C10E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{955C9652-8773-4FFF-8DED-751C34C10E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{955C9652-8773-4FFF-8DED-751C34C10E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10D68BF3-A6D1-4251-93B8-10D9FC9D42B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D68BF3-A6D1-4251-93B8-10D9FC9D42B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D68BF3-A6D1-4251-93B8-10D9FC9D42B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D68BF3-A6D1-4251-93B8-10D9FC9D42B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E91BF0D-255F-40FE-A27F-D2A7E455BE4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E91BF0D-255F-40FE-A27F-D2A7E455BE4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E91BF0D-255F-40FE-A27F-D2A7E455BE4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E91BF0D-255F-40FE-A27F-D2A7E455BE4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
