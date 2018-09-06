@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.STS", "Ros
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.API", "Rosmery.Security.API\Rosmery.Security.API.csproj", "{10D68BF3-A6D1-4251-93B8-10D9FC9D42B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rosmery.Security.Identity", "Rosmery.Security.Identity\Rosmery.Security.Identity.csproj", "{2E91BF0D-255F-40FE-A27F-D2A7E455BE4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rosmery.Security.Identity", "Rosmery.Security.Identity\Rosmery.Security.Identity.csproj", "{2E91BF0D-255F-40FE-A27F-D2A7E455BE4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,7 +37,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{53286447-D72B-45DC-BE12-8348996AB1E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53286447-D72B-45DC-BE12-8348996AB1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53286447-D72B-45DC-BE12-8348996AB1E4}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{53286447-D72B-45DC-BE12-8348996AB1E4}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{955C9652-8773-4FFF-8DED-751C34C10E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

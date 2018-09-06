@@ -1,0 +1,19 @@
+{
+  "name": "rosmery.security",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "v4.1.3",
+    "Font-Awesome": "5.3.1",
+    "jQuery": "3.3.1",
+    "perfect-scrollbar": "0.8.1",
+    "tether": "v1.4.4",
+    "nouislider": "11.1.0",
+    "bootstrap-touchspin": "4.2.5"
+  },
+  "resolutions": {
+    "jquery-validation-unobtrusive": "v3.2.10",
+    "perfect-scrollbar": "0.8.1",
+    "tether": "v1.4.4",
+    "bootstrap-touchspin": "4.2.5"
+  }
+}

@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".bowerrc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include=".bowerrc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="development.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -12,10 +20,48 @@
 
   <ItemGroup>
     <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Grants\Index.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="wwwroot\img\files\css.svg" />
+    <None Include="wwwroot\img\files\csv.svg" />
+    <None Include="wwwroot\img\files\doc.svg" />
+    <None Include="wwwroot\img\files\html.svg" />
+    <None Include="wwwroot\img\files\javascript.svg" />
+    <None Include="wwwroot\img\files\jpg.svg" />
+    <None Include="wwwroot\img\files\mp4.svg" />
+    <None Include="wwwroot\img\files\pdf.svg" />
+    <None Include="wwwroot\img\files\xml.svg" />
+    <None Include="wwwroot\img\files\zip.svg" />
+    <None Include="wwwroot\img\flags\001-austria.svg" />
+    <None Include="wwwroot\img\flags\002-belgium.svg" />
+    <None Include="wwwroot\img\flags\003-switzerland.svg" />
+    <None Include="wwwroot\img\flags\004-indonesia.svg" />
+    <None Include="wwwroot\img\flags\005-portugal.svg" />
+    <None Include="wwwroot\img\flags\006-turkey.svg" />
+    <None Include="wwwroot\img\flags\007-malasya.svg" />
+    <None Include="wwwroot\img\flags\008-saudi-arabia.svg" />
+    <None Include="wwwroot\img\flags\009-australia.svg" />
+    <None Include="wwwroot\img\flags\010-india.svg" />
+    <None Include="wwwroot\img\flags\011-brazil.svg" />
+    <None Include="wwwroot\img\flags\012-uk.svg" />
+    <None Include="wwwroot\img\flags\013-russia.svg" />
+    <None Include="wwwroot\img\flags\014-japan.svg" />
+    <None Include="wwwroot\img\flags\015-china.svg" />
+    <None Include="wwwroot\img\flags\016-spain.svg" />
+    <None Include="wwwroot\img\flags\017-germany.svg" />
+    <None Include="wwwroot\img\flags\018-south-korea.svg" />
+    <None Include="wwwroot\img\flags\019-france.svg" />
+    <None Include="wwwroot\img\flags\020-flag.svg" />
+    <None Include="wwwroot\img\icons\exchange.svg" />
+    <None Include="wwwroot\img\icons\logout.svg" />
+    <None Include="wwwroot\img\icons\question.svg" />
+    <None Include="wwwroot\img\icons\warning.svg" />
+    <None Include="wwwroot\metronic\fonts\Metronic_fda1334c35d0f5fe2afb3afebbb6774a.svg" />
+    <None Include="wwwroot\metronic\fonts\Metronic_fda1334c35d0f5fe2afb3afebbb6774a.woff2" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bower" Version="1.3.11" />
     <PackageReference Include="IdentityModel" Version="3.9.0" />
     <PackageReference Include="IdentityServer4" Version="2.2.0" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.1.0" />
