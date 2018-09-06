@@ -4,11 +4,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRouting } from './app.routing';
-import { AuthGuardService } from './common/services/auth-guard.service';
-import { AuthService } from './common/services/auth.service';
-import { CallbackComponent } from './common/components/callback.component';
+import { AuthGuardService } from './shared/services/auth-guard.service';
+import { AuthService } from './shared/services/auth.service';
+import { CallbackComponent } from './shared/components/callback.component';
 import { HomeComponent } from './home/home.component';
-import { AuthInterceptorService } from './common/services/auth-interceptor.service';
+import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthInterceptorService } from './common/services/auth-interceptor.servi
   imports: [
     BrowserModule,
     AppRouting,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     AuthService,

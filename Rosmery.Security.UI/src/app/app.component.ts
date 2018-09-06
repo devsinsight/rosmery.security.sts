@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from './common/services/auth.service';
-import { Observable } from 'rxjs';
+import { AuthService } from './shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +10,24 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit {
   isLoggedIn: boolean;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.authService.userLoadedEvent.subscribe( user => {
+      console.log('user: ', user);
       this.isLoggedIn = !!user;
     });
-
   }
 
-  logout() {
+  signin() {
+    this.authService.startSigninMainWindow();
+  }
+
+  signout() {
     this.authService.startSignoutMainWindow();
   }
 
+  signup () {
+    this.router.navigate(['/account/create-user']);
+  }
 }

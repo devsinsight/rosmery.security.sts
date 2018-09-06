@@ -7,6 +7,9 @@ using Rosmery.Security.STS.Data;
 using Rosmery.Security.STS.Configuration;
 using System.Reflection;
 using Rosmery.Security.Identity.Configuration;
+using Rosmery.Security.Identity.DatabaseContext;
+using IdentityServer4.EntityFramework.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Rosmery.Security.STS
 {
@@ -35,7 +38,8 @@ namespace Rosmery.Security.STS
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            TestData.InitializeDatabase(app);
+            Initializer.EnsureMigration(app);
+            Initializer.InitializeDatabase(app);
 
             if (env.IsDevelopment())
             {

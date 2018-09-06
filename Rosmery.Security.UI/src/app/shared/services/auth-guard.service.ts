@@ -10,16 +10,16 @@ export class AuthGuardService implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {
    }
 
-  canActivate() {
-    const isLoggedIn = this.authService.isLoggedIn();
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    console.log('url: ', state.url);
 
-    isLoggedIn.subscribe( result => {
-      if (!result) {
-        this.router.navigate(['/account/login']);
+    await this.authService.isLoggedIn().subscribe( user => {
+      if (!user) {
+        this.router.navigate(['/account/unauthorized']);
       }
     });
 
-    return isLoggedIn;
+    return true;
   }
 
 

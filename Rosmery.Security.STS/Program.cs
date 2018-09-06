@@ -28,14 +28,6 @@ namespace Rosmery.Security.STS
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                //.UseKestrel(options =>
-                //{
-                //    options.Listen(IPAddress.Loopback, 5010, listenOptions =>
-                //    {
-                //        var serverCertificate = DevelopmentCertification.Get();
-                //        listenOptions.UseHttps(serverCertificate);
-                //    });
-                //})
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
             

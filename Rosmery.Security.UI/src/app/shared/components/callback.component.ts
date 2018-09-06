@@ -11,7 +11,7 @@ export class CallbackComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.authService.completeAuthentication().then( () => {
+    this.authService.endSigninMainWindow().then( () => {
       this.router.navigate(['/home']);
     });
   }

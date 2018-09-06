@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../common/services/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 import { HttpClient } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-home',
@@ -17,8 +16,6 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.claims = this.authService.getClaims();
-    this.tokenHeader = this.authService.getAuthorizationHeaderValue();
   }
 
   test() {

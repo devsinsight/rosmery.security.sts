@@ -1,3 +1,27 @@
-<p>
-  create-user works!
-</p>
+<form>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" [(ngModel)]="user.userName" name="userName" id="username" aria-describedby="usernameHelp" placeholder="Username">
+    <small id="usernameHelp" class="form-text text-muted">Enter a username</small>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" [(ngModel)]="user.password" name="password" id="password" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="firstname">First Name</label>
+    <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName" id="firstname" aria-describedby="firstnameHelp" placeholder="Username">
+    <small id="firstnameHelp" class="form-text text-muted">Enter your first name</small>
+  </div>
+  <div class="form-group">
+    <label for="lastname">Last Name</label>
+    <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" id="lastname" aria-describedby="lastnameHelp" placeholder="Username">
+    <small id="lastnameHelp" class="form-text text-muted">Enter your last name</small>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" [(ngModel)]="user.Email" name="email" id="email" aria-describedby="emailHelp" placeholder="Username">
+    <small id="emailHelp" class="form-text text-muted">Enter your email</small>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="createUser()">Sign Up</button>
+</form>

@@ -6,13 +6,16 @@ import { UpdateUserComponent } from './user/update-user/update-user.component';
 import { CreateRoleComponent } from './role/create-role/create-role.component';
 import { UpdateRoleComponent } from './role/update-role/update-role.component';
 import { AccountRouting } from './account.routing';
-import { AccountComponent } from './account.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { LogoutComponent } from './logout/logout.component';
+import { AccountService } from './shared/account.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    AccountRouting
+    AccountRouting,
+    FormsModule
   ],
   declarations: [
     LoginComponent,
@@ -20,7 +23,8 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     UpdateUserComponent,
     CreateRoleComponent,
     UpdateRoleComponent,
-    AccountComponent,
-    UnauthorizedComponent]
+    UnauthorizedComponent,
+    LogoutComponent],
+  providers: [AccountService]
 })
 export class AccountModule { }

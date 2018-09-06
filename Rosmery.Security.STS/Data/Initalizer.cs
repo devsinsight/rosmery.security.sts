@@ -2,16 +2,17 @@
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Rosmery.Security.Identity.DatabaseContext;
 using System.Collections.Generic;
 using System.Linq;
 using static IdentityServer4.IdentityServerConstants;
 
 namespace Rosmery.Security.STS.Data
 {
-    public class TestData
+    public class Initializer
     {
-        #region Init Demo Data
 
         private static IEnumerable<IdentityResource> GetIdentityResources()
         {
@@ -40,7 +41,7 @@ namespace Rosmery.Security.STS.Data
                     AccessTokenType = AccessTokenType.Reference,
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = { "http://localhost:4200/callback" },
-                    PostLogoutRedirectUris = { "http://localhost:4200/index.html" },
+                    PostLogoutRedirectUris = { "http://localhost:4200/account/logout" },
                     
                     ClientSecrets =
                     {
@@ -108,7 +109,20 @@ namespace Rosmery.Security.STS.Data
             }
         }
 
-        #endregion
+        public static void EnsureMigration(IApplicationBuilder app) {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var identityContext = serviceScope.ServiceProvider.GetService<SecurityDbContext>();
+                identityContext.Database.Migrate();
+
+                var stsContext = serviceScope.ServiceProvider.GetService<ConfigurationDbContext>();
+                stsContext.Database.Migrate();
+
+                var persistentContext = serviceScope.ServiceProvider.GetService<PersistedGrantDbContext>();
+                persistentContext.Database.Migrate();
+            }
+        }
+
 
     }
 }

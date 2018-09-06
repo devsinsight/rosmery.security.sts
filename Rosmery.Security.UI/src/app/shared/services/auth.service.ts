@@ -41,14 +41,14 @@ export class AuthService {
   }
 
   getAuthorizationHeaderValue(): string {
-    return `${this.user.token_type} ${this.user.access_token}`;
+    return this.user ? `${this.user.token_type} ${this.user.access_token}` : '';
   }
 
-  startAuthentication(): Promise<User> {
+  startSigninMainWindow(): Promise<User> {
     return this.manager.signinRedirect();
   }
 
-  completeAuthentication(): Promise<void> {
+  endSigninMainWindow(): Promise<void> {
       return this.manager.signinRedirectCallback().then(user => {
           this.user = user;
       });
@@ -58,8 +58,8 @@ export class AuthService {
     return this.manager.signoutRedirect();
   }
 
-  endSignoutMainWindow() {
-    this.manager.signoutRedirectCallback().then(function (resp) {
+  endSignoutMainWindow(): Promise<void> {
+    return this.manager.signoutRedirectCallback().then(function (resp) {
       console.log('signed out', resp);
     });
   }
@@ -69,7 +69,7 @@ export class AuthService {
         authority: 'http://localhost:5000',
         client_id: 'rosmery-security',
         redirect_uri: 'http://localhost:4200/callback',
-        post_logout_redirect_uri: 'http://localhost:4200/',
+        post_logout_redirect_uri: 'http://localhost:4200/account/logout',
         response_type: 'id_token token',
         scope: 'openid profile rosmery-security',
         filterProtocolClaims: true,

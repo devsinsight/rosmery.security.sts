@@ -29,7 +29,7 @@ namespace Rosmery.Security.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
