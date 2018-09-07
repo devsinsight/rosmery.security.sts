@@ -165,6 +165,9 @@ namespace Rosmery.Security.STS.Controllers
 
                 // raise the logout event
                 await _events.RaiseAsync(new UserLogoutSuccessEvent(User.GetSubjectId(), User.GetDisplayName()));
+
+                // revoke reference token from database
+                await _interaction.RevokeTokensForCurrentSessionAsync();
             }
 
             // check if we need to trigger sign-out at an upstream identity provider
