@@ -16,6 +16,7 @@ export class AuthService {
   constructor(private router: Router) {
     this.manager.getUser()
       .then((user) => {
+        console.log('get user', user);
           this.user = user;
           this.userLoadedEvent.emit(user);
       });
@@ -68,8 +69,8 @@ export class AuthService {
     return {
         authority: 'http://localhost:5000',
         client_id: 'rosmery-security',
-        redirect_uri: 'http://localhost:4200/callback',
-        post_logout_redirect_uri: 'http://localhost:4200/account/logout',
+        redirect_uri: 'http://localhost:4200/signin-callback',
+        post_logout_redirect_uri: 'http://localhost:4200/signout-callback',
         response_type: 'id_token token',
         scope: 'openid profile rosmery-security',
         filterProtocolClaims: true,

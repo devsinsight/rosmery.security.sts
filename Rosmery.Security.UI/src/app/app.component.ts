@@ -7,24 +7,23 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styles: []
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+
   isLoggedIn: boolean;
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {
-    this.authService.userLoadedEvent.subscribe( user => {
-      console.log('user: ', user);
-      this.isLoggedIn = !!user;
+  async ngOnInit() {
+    await this.authService.userLoadedEvent.subscribe( result => {
+      this.isLoggedIn = !!result;
     });
   }
 
-  signin() {
-    this.authService.startSigninMainWindow();
+  ngOnDestroy(): void {
   }
 
   signout() {
-    this.authService.startSignoutMainWindow();
+    this.router.navigate(['/account/logout']);
   }
 
   signup () {

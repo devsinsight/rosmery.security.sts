@@ -3,16 +3,17 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-callback',
+  selector: 'app-signout-callback',
   template: '<div>Please wait...</div>'
 })
-export class CallbackComponent implements OnInit {
+export class SignoutCallbackComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.authService.endSigninMainWindow().then( () => {
-      this.router.navigate(['/home']);
+    this.authService.endSignoutMainWindow()
+    .then( () => {
+      this.router.navigate(['/account/login']);
     });
   }
 

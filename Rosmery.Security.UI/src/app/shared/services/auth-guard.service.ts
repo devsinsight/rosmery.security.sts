@@ -15,7 +15,7 @@ export class AuthGuardService implements CanActivate {
 
     await this.authService.isLoggedIn().subscribe( user => {
       if (!user) {
-        this.router.navigate(['/account/unauthorized']);
+        this.router.navigate(['/account/login']);
       }
     });
 
