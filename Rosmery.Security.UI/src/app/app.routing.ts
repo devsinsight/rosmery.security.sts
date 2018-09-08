@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AuthGuardService } from './shared/services/auth-guard.service';
+import { SilentRenewCallbackComponent } from './shared/components/silent-renew-callback.component';
 
 const router: Routes =
 [
@@ -13,6 +14,7 @@ const router: Routes =
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService]},
   { path: 'signin-callback', component: SigninCallbackComponent },
   { path: 'signout-callback', component: SignoutCallbackComponent },
+  { path: 'silent-renew-callback', component: SilentRenewCallbackComponent },
   { path: 'account', loadChildren: './account/account.module#AccountModule' },
   { path: 'token-provider', loadChildren: './token-provider/token-provider.module#TokenProviderModule' }
 ];

@@ -40,8 +40,15 @@ namespace Rosmery.Security.STS.Data
                     AccessTokenLifetime=1200,
                     AccessTokenType = AccessTokenType.Reference,
                     AllowAccessTokensViaBrowser = true,
-                    RedirectUris = { "http://localhost:4200/signin-callback" },
-                    PostLogoutRedirectUris = { "http://localhost:4200/signout-callback" },
+                    RedirectUris =
+                    {
+                        "http://localhost:4200/signin-callback",
+                        "http://localhost:4200/silent-renew-callback"
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        "http://localhost:4200/signout-callback"
+                    },
                     
                     ClientSecrets =
                     {

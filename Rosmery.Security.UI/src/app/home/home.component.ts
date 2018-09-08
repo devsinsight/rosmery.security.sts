@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -13,7 +12,7 @@ export class HomeComponent implements OnInit {
   tokenHeader: any;
   response: any;
 
-  constructor(private authService: AuthService, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }

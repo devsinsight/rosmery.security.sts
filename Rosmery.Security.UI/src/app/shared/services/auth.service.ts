@@ -16,18 +16,23 @@ export class AuthService {
   constructor(private router: Router) {
     this.manager.getUser()
       .then((user) => {
-        console.log('get user', user);
           this.user = user;
           this.userLoadedEvent.emit(user);
       });
 
     this.manager.events.addUserLoaded(user => {
+      console.log('user loaded: ', user);
       this.user = user;
       this.userLoadedEvent.emit(user);
     });
 
     this.manager.events.addUserUnloaded((e) => {
       this.userLoadedEvent.emit(null);
+    });
+
+    this.manager.events.addAccessTokenExpiring( (e) => {
+      console.log('access token expiring!');
+      this.manager.removeUser();
     });
 
   }
@@ -65,18 +70,23 @@ export class AuthService {
     });
   }
 
+  startSilentSigninMainWindow(): Promise<any> {
+    return this.manager.signinSilentCallback();
+  }
+
   getClientSettings(): UserManagerSettings {
     return {
         authority: 'http://localhost:5000',
         client_id: 'rosmery-security',
         redirect_uri: 'http://localhost:4200/signin-callback',
         post_logout_redirect_uri: 'http://localhost:4200/signout-callback',
+        silent_redirect_uri: 'http://localhost:4200/silent-renew-callback',
         response_type: 'id_token token',
         scope: 'openid profile rosmery-security',
         filterProtocolClaims: true,
         loadUserInfo: true,
-        userStore: new WebStorageStateStore({ store: window.localStorage })
-
+        automaticSilentRenew: true,
+        userStore: new WebStorageStateStore({ store: window.localStorage }),
     };
   }
 }

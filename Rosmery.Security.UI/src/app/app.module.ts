@@ -11,12 +11,14 @@ import { SignoutCallbackComponent } from './shared/components/signout-callback.c
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
 import { FormsModule } from '@angular/forms';
+import { SilentRenewCallbackComponent } from './shared/components/silent-renew-callback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SigninCallbackComponent,
     SignoutCallbackComponent,
+    SilentRenewCallbackComponent,
     HomeComponent,
   ],
   imports: [
