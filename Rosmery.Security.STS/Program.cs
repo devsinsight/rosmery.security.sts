@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
-using System.IO;
 
 namespace Rosmery.Security.STS
 {
@@ -12,7 +12,7 @@ namespace Rosmery.Security.STS
     {
         public static void Main(string[] args)
         {
-            Console.Title = "Rosmery Security";
+            Console.Title = "Rosmery STS";
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -28,9 +28,7 @@ namespace Rosmery.Security.STS
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
-            
                 .Build();
 
     }

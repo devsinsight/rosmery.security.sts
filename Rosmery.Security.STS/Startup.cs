@@ -3,13 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Rosmery.Security.STS.Data;
-using Rosmery.Security.STS.Configuration;
-using System.Reflection;
 using Rosmery.Security.Identity.Configuration;
-using Rosmery.Security.Identity.DatabaseContext;
-using IdentityServer4.EntityFramework.DbContexts;
-using Microsoft.EntityFrameworkCore;
+using Rosmery.Security.STS.Configuration;
+using Rosmery.Security.STS.Data;
+using System.Reflection;
 
 namespace Rosmery.Security.STS
 {
@@ -28,7 +25,7 @@ namespace Rosmery.Security.STS
         {
             var assemblyName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             var connectionString = Configuration.GetConnectionString("SecurityDbConnection");
-
+    
             services.AddIdentityConfiguration(assemblyName, connectionString);
 
             services.AddMvc();

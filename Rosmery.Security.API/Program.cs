@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System;
 
 namespace Rosmery.Security.API
 {
@@ -7,6 +8,8 @@ namespace Rosmery.Security.API
     {
         public static void Main(string[] args)
         {
+            Console.Title = "Rosmery API";
+
             CreateWebHostBuilder(args).Build().Run();
         }
 
