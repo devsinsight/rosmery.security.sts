@@ -4,12 +4,14 @@ using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Rosmery.Security.STS.CustomAttributes;
 using Rosmery.Security.STS.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Rosmery.Security.STS.Controllers
 {
+    [SecurityHeaders]
     [Authorize]
     public class ConsentController : Controller
     {
@@ -72,12 +74,11 @@ namespace Rosmery.Security.STS.Controllers
 
             ConsentResponse grantedConsent = null;
 
-            // user clicked 'no' - send back the standard 'access_denied' response
             if (model.Button == "no")
             {
                 grantedConsent = ConsentResponse.Denied;
             }
-            // user clicked 'yes' - validate the data
+
             else if (model.Button == "yes" && model != null)
             {
                 // if the user consented to some scope, build the response model

@@ -6,9 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Rosmery.Security.STS.Models;
+using Rosmery.Security.STS.CustomAttributes;
 
 namespace Rosmery.Security.STS.Controllers
 {
+    [SecurityHeaders]
     [Authorize]
     public class GrantsController : Controller
     {

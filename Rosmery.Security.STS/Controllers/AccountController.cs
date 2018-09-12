@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rosmery.Security.Identity.Managers;
 using Rosmery.Security.Identity.Models;
+using Rosmery.Security.STS.CustomAttributes;
 using Rosmery.Security.STS.Models;
 using System;
 using System.Linq;
@@ -18,6 +19,7 @@ using System.Threading.Tasks;
 
 namespace Rosmery.Security.STS.Controllers
 {
+    [SecurityHeaders]
     public class AccountController : Controller
     {
         private readonly SecurityUserManager<User> _userManager;
