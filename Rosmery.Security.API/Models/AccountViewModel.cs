@@ -11,7 +11,6 @@ namespace Rosmery.Security.API.Models
         public string LastName { get; set; }
 
         [Required]
-        [EmailAddress]
         public string UserName { get; set; }
 
         [Required]

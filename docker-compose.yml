@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  rosmery.security.api:
+    image: ${DOCKER_REGISTRY-}rosmerysecurityapi
+    build:
+      context: .
+      dockerfile: Rosmery.Security.API/Dockerfile
+
+  rosmery.security.sts:
+    image: ${DOCKER_REGISTRY-}rosmerysecuritysts
+    build:
+      context: .
+      dockerfile: Rosmery.Security.STS/Dockerfile
+
+  security.database:
+    image: mcr.microsoft.com/mssql/server

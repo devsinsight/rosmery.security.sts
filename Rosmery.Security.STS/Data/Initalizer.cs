@@ -63,7 +63,8 @@ namespace Rosmery.Security.STS.Data
                     AllowedCorsOrigins =
                     {
                         "http://localhost:4200",
-                        "http://localhost:5001"
+                        "http://localhost:5001",
+                        "https://localhost:44390"
                     }
                     
                 }

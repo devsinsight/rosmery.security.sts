@@ -6,9 +6,9 @@ namespace Rosmery.Security.API.IdentityServer
     {
         public ApiResources(IConfiguration config)
         {
-            ApiName = config["Security:ApiName"];
-            ApiSecret = config["Security:ApiSecret"];
-            Authority = config["Security:SecurityEndpoint"];
+            ApiName = config["SecurityApiName"];
+            ApiSecret = config["SecurityApiSecret"];
+            Authority = config["SecurityEndpoint"];
         }
 
         public string ApiName { get; }

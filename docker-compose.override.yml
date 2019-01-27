@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+  rosmery.security.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44390
+      - ConnectionString=${ROSMERY_SECURITY_DB}
+      - SecurityApiName=${ROSMERY_SECURITY_API_NAME}
+      - SecurityApiSecret=${ROSMERY_SECURITY_API_SECRET}
+      - SecurityEndpoint=${ROSMERY_SECURITY_ENDPOINT}
+    ports:
+      - "5001:80"
+      - "44390:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - security.database
+      - rosmery.security.sts
+
+
+  rosmery.security.sts:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44356
+      - ConnectionString=${ROSMERY_SECURITY_DB}
+    ports:
+      - "5000:80"
+      - "44356:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - security.database
+
+  security.database:
+    environment:
+      - SA_PASSWORD=Pass@w0rd1
+      - ACCEPT_EULA=Y
+    ports:
+      - "5400:1433"

@@ -76,7 +76,7 @@ export class AuthService {
 
   getClientSettings(): UserManagerSettings {
     return {
-        authority: 'http://localhost:5000',
+        authority: 'https://localhost:44356',
         client_id: 'rosmery-security',
         redirect_uri: 'http://localhost:4200/signin-callback',
         post_logout_redirect_uri: 'http://localhost:4200/signout-callback',

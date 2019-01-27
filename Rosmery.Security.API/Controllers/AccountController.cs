@@ -15,17 +15,14 @@ namespace Rosmery.Security.API.Controllers
     {
         private readonly SecurityUserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
-        private readonly IClientCredentials _clientCredentials;
         private readonly string SecurityRoleName = "Security";
 
         public AccountController(
             SecurityUserManager<User> userManager,
-            RoleManager<Role> roleManager,
-            IClientCredentials clientCredentials)
+            RoleManager<Role> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _clientCredentials = clientCredentials;
         }
 
         [HttpPost("register")]

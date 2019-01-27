@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -30,7 +31,9 @@ namespace Rosmery.Security.STS
 
             services.AddMvc();
 
-            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security", DevelopmentCertification.GetFromStore());
+            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security");
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -52,6 +55,7 @@ namespace Rosmery.Security.STS
 
             app.AddIdentityServerAppConfiguration();
 
+            app.UseHttpsRedirection();
             app.UseMvcWithDefaultRoute();
         }
 
