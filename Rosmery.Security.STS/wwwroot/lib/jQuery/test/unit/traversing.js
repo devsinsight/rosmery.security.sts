@@ -470,7 +470,7 @@ QUnit.test( "not(jQuery)", function( assert ) {
 	);
 } );
 
-QUnit[ jQuery.find.compile ? "test" : "skip" ]( "not(Selector) excludes non-element nodes (gh-2808)", function( assert ) {
+QUnit.test( "not(Selector) excludes non-element nodes (gh-2808)", function( assert ) {
 	assert.expect( 3 );
 
 	var mixedContents = jQuery( "#nonnodes" ).contents(),
@@ -608,7 +608,7 @@ QUnit.test( "parents([String])", function( assert ) {
 	assert.equal( jQuery( "#groups" ).parents( "p" )[ 0 ].id, "ap", "Filtered parents check" );
 	assert.equal( jQuery( "#groups" ).parents( "div" )[ 0 ].id, "qunit-fixture", "Filtered parents check2" );
 	assert.deepEqual( jQuery( "#groups" ).parents( "p, div" ).get(), q( "ap", "qunit-fixture" ), "Check for multiple filters" );
-	assert.deepEqual( jQuery( "#en, #sndp" ).parents().get(), q( "foo", "qunit-fixture", "body", "html" ), "Check for unique results from parents" );
+	assert.deepEqual( jQuery( "#en, #sndp" ).parents().get(), q( "foo", "qunit-fixture", "dl", "body", "html" ), "Check for unique results from parents" );
 } );
 
 QUnit.test( "parentsUntil([String])", function( assert ) {
@@ -621,11 +621,11 @@ QUnit.test( "parentsUntil([String])", function( assert ) {
 	assert.deepEqual( jQuery( "#groups" ).parentsUntil( "#html" ).get(), parents.slice( 0, -1 ).get(), "Simple parentsUntil check" );
 	assert.equal( jQuery( "#groups" ).parentsUntil( "#ap" ).length, 0, "Simple parentsUntil check" );
 	assert.deepEqual( jQuery( "#nonnodes" ).contents().eq( 1 ).parentsUntil( "#html" ).eq( 0 ).get(), q( "nonnodes" ), "Text node parentsUntil check" );
-	assert.deepEqual( jQuery( "#groups" ).parentsUntil( "#html, #body" ).get(), parents.slice( 0, 2 ).get(), "Less simple parentsUntil check" );
+	assert.deepEqual( jQuery( "#groups" ).parentsUntil( "#html, #body" ).get(), parents.slice( 0, 3 ).get(), "Less simple parentsUntil check" );
 	assert.deepEqual( jQuery( "#groups" ).parentsUntil( "#html", "div" ).get(), jQuery( "#qunit-fixture" ).get(), "Filtered parentsUntil check" );
-	assert.deepEqual( jQuery( "#groups" ).parentsUntil( "#html", "p,div" ).get(), parents.slice( 0, 2 ).get(), "Multiple-filtered parentsUntil check" );
+	assert.deepEqual( jQuery( "#groups" ).parentsUntil( "#html", "p,div,dl" ).get(), parents.slice( 0, 3 ).get(), "Multiple-filtered parentsUntil check" );
 	assert.equal( jQuery( "#groups" ).parentsUntil( "#html", "span" ).length, 0, "Filtered parentsUntil check, no match" );
-	assert.deepEqual( jQuery( "#groups, #ap" ).parentsUntil( "#html", "p,div" ).get(), parents.slice( 0, 2 ).get(), "Multi-source, multiple-filtered parentsUntil check" );
+	assert.deepEqual( jQuery( "#groups, #ap" ).parentsUntil( "#html", "p,div,dl" ).get(), parents.slice( 0, 3 ).get(), "Multi-source, multiple-filtered parentsUntil check" );
 } );
 
 QUnit.test( "next([String])", function( assert ) {
@@ -742,58 +742,6 @@ QUnit.test( "contents()", function( assert ) {
 	assert.equal( c.length, 1, "Check node,textnode,comment contents is just one" );
 	assert.equal( c[ 0 ].nodeValue, "hi", "Check node,textnode,comment contents is just the one from span" );
 } );
-
-QUnit.test( "contents() for <template />", function( assert ) {
-    assert.expect( 4 );
-
-    jQuery( "#qunit-fixture" ).append(
-        "<template id='template'>" +
-        "    <div id='template-div0'>" +
-        "        <span>Hello, Web Component!</span>" +
-        "    </div>" +
-        "    <div id='template-div1'></div>" +
-        "    <div id='template-div2'></div>" +
-        "</template>"
-    );
-
-    var contents = jQuery( "#template" ).contents();
-    assert.equal( contents.length, 6, "Check template element contents" );
-
-    assert.equal( contents.find( "span" ).text(), "Hello, Web Component!", "Find span in template and check its text" );
-
-    jQuery( "<div id='templateTest' />" ).append(
-        jQuery( jQuery.map( contents, function( node ) {
-            return document.importNode( node, true );
-        } ) )
-    ).appendTo( "#qunit-fixture" );
-
-    contents = jQuery( "#templateTest" ).contents();
-    assert.equal( contents.length, 6, "Check cloned nodes of template element contents" );
-
-    assert.equal( contents.filter( "div" ).length, 3, "Count cloned elements from template" );
-} );
-
-QUnit[ "content" in document.createElement( "template" ) ? "test" : "skip" ](
-	"contents() for <template /> remains inert",
-	function( assert ) {
-        assert.expect( 2 );
-
-		Globals.register( "testScript" );
-		Globals.register( "testImgOnload" );
-
-        jQuery( "#qunit-fixture" ).append(
-            "<template id='template'>" +
-            "    <script>testScript = 1;</script>" +
-            "    <img src='" + baseURL + "1x1.jpg' onload='testImgOnload = 1' >" +
-            "</template>"
-        );
-
-        var content = jQuery( "#template" ).contents();
-
-        assert.strictEqual( window.testScript, true, "script in template isn't executed" );
-        assert.strictEqual( window.testImgOnload, true, "onload of image in template isn't executed" );
-	}
-);
 
 QUnit.test( "sort direction", function( assert ) {
 	assert.expect( 12 );

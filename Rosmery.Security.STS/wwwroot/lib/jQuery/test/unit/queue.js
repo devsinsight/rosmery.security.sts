@@ -128,7 +128,7 @@ QUnit.test( "jQuery.queue should return array while manipulating the queue", fun
 
 	var div = document.createElement( "div" );
 
-	assert.ok( Array.isArray( jQuery.queue( div, "fx", jQuery.noop ) ), "jQuery.queue should return an array while manipulating the queue" );
+	assert.ok( jQuery.isArray( jQuery.queue( div, "fx", jQuery.noop ) ), "jQuery.queue should return an array while manipulating the queue" );
 } );
 
 QUnit.test( "delay()", function( assert ) {
@@ -261,7 +261,7 @@ QUnit.test( ".promise(obj)", function( assert ) {
 	var obj = {},
 		promise = jQuery( "#foo" ).promise( "promise", obj );
 
-	assert.ok( typeof promise.promise === "function", ".promise(type, obj) returns a promise" );
+	assert.ok( jQuery.isFunction( promise.promise ), ".promise(type, obj) returns a promise" );
 	assert.strictEqual( promise, obj, ".promise(type, obj) returns obj" );
 } );
 

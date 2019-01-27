@@ -38,4 +38,5 @@ import { SilentRenewCallbackComponent } from './shared/components/silent-renew-c
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {}

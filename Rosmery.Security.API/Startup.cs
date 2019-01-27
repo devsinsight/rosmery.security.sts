@@ -23,7 +23,7 @@ namespace Rosmery.Security.API
         public void ConfigureServices(IServiceCollection services)
         {
             var assemblyName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            var connectionString = Configuration.GetConnectionString("SecurityDbConnection");
+            var connectionString = Configuration["ConnectionString"];
 
             services.AddIdentityConfiguration(assemblyName, connectionString);
 

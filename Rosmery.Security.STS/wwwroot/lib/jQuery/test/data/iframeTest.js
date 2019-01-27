@@ -1,3 +1,4 @@
+
 window.startIframeTest = function() {
 	var args = Array.prototype.slice.call( arguments );
 
