@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   test() {
-    this.http.get('https://localhost:44356/identity')
+    this.http.get(environment.baseSeguritySTSUrl + '/identity')
       .subscribe( response => {
         this.response = response;
       }, error => {

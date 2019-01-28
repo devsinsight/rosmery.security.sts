@@ -36,6 +36,7 @@ services:
     depends_on:
       - security.database
 
+
   security.database:
     environment:
       - SA_PASSWORD=Pass@w0rd1

@@ -1,7 +1,0 @@
-version: '3.4'
-
-services:
-    environment:
-      NODE_ENV: development
-    ports:
-      - "3000:80"

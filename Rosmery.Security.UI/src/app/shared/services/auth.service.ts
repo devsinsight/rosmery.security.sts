@@ -3,6 +3,7 @@ import { UserManager, UserManagerSettings, User, WebStorageStateStore } from 'oi
 import { Router } from '@angular/router';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -76,11 +77,11 @@ export class AuthService {
 
   getClientSettings(): UserManagerSettings {
     return {
-        authority: 'https://localhost:44356',
+        authority: environment.baseSeguritySTSUrl,
         client_id: 'rosmery-security',
-        redirect_uri: 'http://localhost:3000/signin-callback',
-        post_logout_redirect_uri: 'http://localhost:3000/signout-callback',
-        silent_redirect_uri: 'http://localhost:3000/silent-renew-callback',
+        redirect_uri: environment.baseUrl + '/signin-callback',
+        post_logout_redirect_uri: environment.baseUrl + '/signout-callback',
+        silent_redirect_uri: environment.baseUrl +  '/silent-renew-callback',
         response_type: 'id_token token',
         scope: 'openid profile rosmery-security',
         filterProtocolClaims: true,
