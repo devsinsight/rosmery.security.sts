@@ -43,11 +43,14 @@ namespace Rosmery.Security.STS.Data
                     RedirectUris =
                     {
                         "http://localhost:4200/signin-callback",
-                        "http://localhost:4200/silent-renew-callback"
+                        "http://localhost:4200/silent-renew-callback",
+                        "http://localhost:3000/signin-callback", //docker version
+                        "http://localhost:3000/silent-renew-callback" //docker version
                     },
                     PostLogoutRedirectUris =
                     {
-                        "http://localhost:4200/signout-callback"
+                        "http://localhost:4200/signout-callback",
+                        "http://localhost:3000/signout-callback" //docker version
                     },
                     
                     ClientSecrets =
@@ -62,9 +65,10 @@ namespace Rosmery.Security.STS.Data
                     },
                     AllowedCorsOrigins =
                     {
-                        "http://localhost:4200",
-                        "http://localhost:5001",
-                        "https://localhost:44390"
+                        "http://localhost:4200",//simple ui
+                        "http://localhost:5001", //no ssl dev
+                        "https://localhost:44390", //ssl dev
+                        "http://localhost:3000" //docker dev
                     }
                     
                 }

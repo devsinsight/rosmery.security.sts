@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   }
 
   test() {
-    this.http.get('http://localhost:5001/identity')
+    this.http.get('https://localhost:44356/identity')
       .subscribe( response => {
         this.response = response;
       }, error => {

@@ -78,9 +78,9 @@ export class AuthService {
     return {
         authority: 'https://localhost:44356',
         client_id: 'rosmery-security',
-        redirect_uri: 'http://localhost:4200/signin-callback',
-        post_logout_redirect_uri: 'http://localhost:4200/signout-callback',
-        silent_redirect_uri: 'http://localhost:4200/silent-renew-callback',
+        redirect_uri: 'http://localhost:3000/signin-callback',
+        post_logout_redirect_uri: 'http://localhost:3000/signout-callback',
+        silent_redirect_uri: 'http://localhost:3000/silent-renew-callback',
         response_type: 'id_token token',
         scope: 'openid profile rosmery-security',
         filterProtocolClaims: true,
