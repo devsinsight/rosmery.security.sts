@@ -3,7 +3,7 @@ import { UserManager, UserManagerSettings, User, WebStorageStateStore } from 'oi
 import { Router } from '@angular/router';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

@@ -29,11 +29,9 @@ namespace Rosmery.Security.STS
 
             services.AddIdentityConfiguration(assemblyName, connectionString);
 
-            services.AddMvc();
-
-            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security");
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security");  
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -45,10 +43,6 @@ namespace Rosmery.Security.STS
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();

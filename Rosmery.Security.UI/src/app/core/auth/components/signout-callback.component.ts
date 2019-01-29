@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
-  selector: 'app-signin-callback',
+  selector: 'app-signout-callback',
   template: '<div>Please wait...</div>'
 })
-export class SigninCallbackComponent implements OnInit {
+export class SignoutCallbackComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.authService.endSigninMainWindow()
+    this.authService.endSignoutMainWindow()
     .then( () => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
     });
   }
 

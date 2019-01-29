@@ -448,6 +448,14 @@ export class MenuConfig implements ConfigModel {
 								}
 							]
 						}
+					},
+					{
+						title: 'Test',
+						root: true,
+						icon: 'flaticon-settings',
+						toggle: 'click',
+						translate: 'MENU.TEST'
+					
 					}
 				]
 			},

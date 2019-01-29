@@ -17,9 +17,10 @@ import { GetObjectPipe } from './pipes/get-object.pipe';
 import { ConsoleLogPipe } from './pipes/console-log.pipe';
 import { SafePipe } from './pipes/safe.pipe';
 import { PortletDirective } from './directives/portlet.directive';
-import { SigninCallbackComponent } from './components/signin-callback.component';
-import { SignoutCallbackComponent } from './components/signout-callback.component';
-import { SilentRenewCallbackComponent } from './components/silent-renew-callback.component';
+
+import { SigninCallbackComponent } from './auth/components/signin-callback.component';
+import { SignoutCallbackComponent } from './auth/components/signout-callback.component';
+import { SilentRenewCallbackComponent } from './auth/components/silent-renew-callback.component';
 
 @NgModule({
 	imports: [CommonModule],
@@ -43,6 +44,7 @@ import { SilentRenewCallbackComponent } from './components/silent-renew-callback
 		GetObjectPipe,
 		ConsoleLogPipe,
 		SafePipe,
+		//auth
 		SigninCallbackComponent,
 		SignoutCallbackComponent,
 		SilentRenewCallbackComponent

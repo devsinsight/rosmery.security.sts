@@ -31,7 +31,7 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit {
 		public classInitService: ClassInitService,
 		public menuHorService: MenuHorizontalService,
 		private menuConfigService: MenuConfigService,
-		private router: Router,
+		private router: Router
 	) {
 		this.classes = this.menuHorService.menuClasses;
 	}
@@ -213,4 +213,5 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit {
 
 		return false;
 	}
+
 }

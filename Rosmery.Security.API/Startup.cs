@@ -28,15 +28,15 @@ namespace Rosmery.Security.API
 
             services.AddIdentityConfiguration(assemblyName, connectionString);
 
-            services.AddMvcCore()
-                    .AddAuthorization()
-                    .AddJsonFormatters();
-
             services.AddCors();
+
+            services.AddMvcCore()
+                .AddAuthorization()
+                .AddJsonFormatters()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddAccessTokenValidationServiceConfiguration(new ApiResources(Configuration));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -44,8 +44,13 @@ namespace Rosmery.Security.API
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials());
+                .AllowAnyHeader());
+
+            if (env.IsDevelopment()) { 
+                app.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage();
+            }
+
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();

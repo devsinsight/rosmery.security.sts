@@ -18,8 +18,6 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
     depends_on:
       - security.database
-      - rosmery.security.sts
-
 
   rosmery.security.sts:
     environment:
@@ -35,7 +33,6 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
     depends_on:
       - security.database
-
 
   security.database:
     environment:

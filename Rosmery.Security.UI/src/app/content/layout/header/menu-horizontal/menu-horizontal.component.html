@@ -9,7 +9,6 @@
 <!-- </div> -->
 <!-- END: Horizontal Menu -->
 
-
 <ng-template #m_menu let-item="item" let-parentItem="parentItem">
 	<li attr.aria-haspopup="true"
 	[attr.m-menu-submenu-toggle]="getItemAttrSubmenuToggle(item)"
@@ -18,7 +17,6 @@
 	[attr.m-menu-link-redirect]="getItemAttrLinkRedirect(item)"
 	class="{{ getItemCssClasses(item) }}"
 	[ngClass]="{'m-menu__item--active' : isMenuItemIsActive(item)}">
-
 		<!-- if item has submenu -->
 		<ng-container *ngIf="item.submenu">
 			<a href="javascript:;" [ngClass]="{ 'm-menu__toggle': item.root }" class="m-menu__link">

@@ -11,7 +11,8 @@ export const locale = {
 			CREATE_POST: 'Crear nueva publicación',
 			REPORTS: 'Informes',
 			APPS: 'Aplicaciones',
-			DASHBOARD: 'Tablero'
+			DASHBOARD: 'Tablero',
+			TEST: 'Prueba'
 		},
 		AUTH: {
 			GENERAL: {
