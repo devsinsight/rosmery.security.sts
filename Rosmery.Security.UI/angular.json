@@ -53,12 +53,14 @@
               }
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
-            ],
+              "src/styles.scss",
+              "src/assets/vendors/base/vendors.bundle.css",
+              "src/assets/demo/default/base/style.bundle.css",
+              "node_modules/material-design-icons/iconfont/material-icons.css"
+	          ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "src/assets/vendors/base/vendors.bundle.js",
+              "src/assets/demo/default/base/scripts.bundle.js"
             ]
           },
           "configurations": {

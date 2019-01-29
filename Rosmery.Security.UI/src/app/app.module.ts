@@ -1,42 +1,96 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER  } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { AppRouting } from './app.routing';
-import { AuthGuardService } from './shared/services/auth-guard.service';
-import { AuthService } from './shared/services/auth.service';
-import { SigninCallbackComponent } from './shared/components/signin-callback.component';
-import { SignoutCallbackComponent } from './shared/components/signout-callback.component';
-import { HomeComponent } from './home/home.component';
-import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
-import { FormsModule } from '@angular/forms';
-import { SilentRenewCallbackComponent } from './shared/components/silent-renew-callback.component';
+import { AppRoutingModule } from './app-routing.module';
+
+import { NgxPermissionsModule } from 'ngx-permissions';
+
+import { LayoutModule } from './content/layout/layout.module';
+import { PartialsModule } from './content/partials/partials.module';
+import { CoreModule } from './core/core.module';
+
+import { LayoutConfigService } from './core/services/layout-config.service';
+import { MenuConfigService } from './core/services/menu-config.service';
+import { PageConfigService } from './core/services/page-config.service';
+import { UserService } from './core/services/user.service';
+import { UtilsService } from './core/services/utils.service';
+import { ClassInitService } from './core/services/class-init.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GestureConfig, MatProgressSpinnerModule } from '@angular/material';
+import { OverlayModule } from '@angular/cdk/overlay';
+
+import { MessengerService } from './core/services/messenger.service';
+import { ClipboardService } from './core/services/clipboard.sevice';
+
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { LayoutConfigStorageService } from './core/services/layout-config-storage.service';
+import { LogsService } from './core/services/logs.service';
+import { QuickSearchService } from './core/services/quick-search.service';
+import { SubheaderService } from './core/services/layout/subheader.service';
+import { HeaderService } from './core/services/layout/header.service';
+import { MenuHorizontalService } from './core/services/layout/menu-horizontal.service';
+import { MenuAsideService } from './core/services/layout/menu-aside.service';
+import { LayoutRefService } from './core/services/layout/layout-ref.service';
+import { SplashScreenService } from './core/services/splash-screen.service';
+import { DataTableService } from './core/services/datatable.service';
+
+import 'hammerjs';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+	// suppressScrollX: true
+};
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SigninCallbackComponent,
-    SignoutCallbackComponent,
-    SilentRenewCallbackComponent,
-    HomeComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRouting,
-    HttpClientModule,
-    FormsModule
-  ],
-  providers: [
-    AuthService,
-    AuthGuardService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true
-    },
-  ],
-  bootstrap: [AppComponent]
-})
+	declarations: [AppComponent],
+	imports: [
+		BrowserAnimationsModule,
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		LayoutModule,
+		PartialsModule,
+		CoreModule,
+		OverlayModule,
+		NgxPermissionsModule.forRoot(),
+		NgbModule.forRoot(),
+		TranslateModule.forRoot(),
+		MatProgressSpinnerModule,
+	],
+	providers: [
+		LayoutConfigService,
+		LayoutConfigStorageService,
+		LayoutRefService,
+		MenuConfigService,
+		PageConfigService,
+		UserService,
+		UtilsService,
+		ClassInitService,
+		MessengerService,
+		ClipboardService,
+		LogsService,
+		QuickSearchService,
+		DataTableService,
+		SplashScreenService,
+		{
+			provide: PERFECT_SCROLLBAR_CONFIG,
+			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+		},
 
-export class AppModule {}
+		// template services
+		SubheaderService,
+		HeaderService,
+		MenuHorizontalService,
+		MenuAsideService,
+		{
+			provide: HAMMER_GESTURE_CONFIG,
+			useClass: GestureConfig
+		}
+	],
+	bootstrap: [AppComponent]
+})
+export class AppModule {
+}
