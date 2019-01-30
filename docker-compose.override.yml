@@ -10,12 +10,15 @@ services:
       - SecurityApiName=${ROSMERY_SECURITY_API_NAME}
       - SecurityApiSecret=${ROSMERY_SECURITY_API_SECRET}
       - SecurityEndpoint=${ROSMERY_SECURITY_ENDPOINT}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${ASPNETCORE_KESTREL_CERTIFICATE_PASSWORD}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=${ASPNETCORE_KESTREL_CERTIFICATE_PATH}
     ports:
       - "5001:80"
       - "44390:443"
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${CERTIFICATE_PATH}:/root/.dotnet/https
     depends_on:
       - security.database
 
@@ -25,12 +28,15 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_HTTPS_PORT=44356
       - ConnectionString=${ROSMERY_SECURITY_DB}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${ASPNETCORE_KESTREL_CERTIFICATE_PASSWORD}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=${ASPNETCORE_KESTREL_CERTIFICATE_PATH}
     ports:
       - "5000:80"
       - "44356:443"
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${CERTIFICATE_PATH}:/root/.dotnet/https
     depends_on:
       - security.database
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,7 @@ namespace Rosmery.Security.STS
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security");  
+            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security", DevelopmentCertification.GetFromContainer());  
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -39,17 +40,15 @@ namespace Rosmery.Security.STS
             Initializer.EnsureMigration(app);
             Initializer.InitializeDatabase(app);
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseDatabaseErrorPage();
+            //}
 
             app.UseStaticFiles();
-
+            //app.UseHttpsRedirection();
             app.AddIdentityServerAppConfiguration();
-
-            app.UseHttpsRedirection();
             app.UseMvcWithDefaultRoute();
         }
 

@@ -35,8 +35,9 @@ namespace Rosmery.Security.STS.Configuration
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
                 })
-                .AddDeveloperSigningCredential()   // development environment
-                //.AddSigningCredential(certification) // production environment
+                //.AddDeveloperSigningCredential()   // development environment
+                .AddSigningCredential(certification) // production environment && dev certs
+                .AddValidationKey(certification)
                 .AddAspNetIdentity<User>();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.FileProviders;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
@@ -31,6 +32,22 @@ namespace Rosmery.Security.STS
             var devCert = computerCaStore.Certificates.Find(X509FindType.FindBySubjectName, "development-dummy-cert", false);
             computerCaStore.Close();
             return devCert[0];
+        }
+
+        public static X509Certificate2 GetFromContainer() {
+
+            using (FileStream certificateStream = File.Open(@"/root/.dotnet/https/token.pfx", FileMode.Open))
+            {
+                byte[] certificatePayload;
+                using (var memoryStream = new MemoryStream())
+                {
+                    certificateStream.CopyTo(memoryStream);
+                    certificatePayload = memoryStream.ToArray();
+                }
+
+                return new X509Certificate2(certificatePayload, "Pass@w0rd1");
+            }
+
         }
     }
 }
