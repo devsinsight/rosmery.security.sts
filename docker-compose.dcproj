@@ -6,12 +6,12 @@
     <ProjectGuid>c02209c3-88ae-40c1-95d2-17af8a8941a8</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>rosmery.security.api</DockerServiceName>
+    <DockerServiceName>rosmery.security.sts</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include=".env" />
     <None Include="Token.ps1" />
-    <None Include="Certificatate.ps1" />
+    <None Include="Certificate.ps1" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>

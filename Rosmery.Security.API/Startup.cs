@@ -31,12 +31,12 @@ namespace Rosmery.Security.API
 
             services.AddCors();
 
+            services.AddAccessTokenValidationServiceConfiguration(new ApiResources(Configuration));
+
             services.AddMvcCore()
                 .AddAuthorization()
                 .AddJsonFormatters()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddAccessTokenValidationServiceConfiguration(new ApiResources(Configuration));
 
         }
 
@@ -47,14 +47,19 @@ namespace Rosmery.Security.API
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            if (env.IsDevelopment()) { 
-                app.UseDatabaseErrorPage();
-                app.UseDeveloperExceptionPage();
-            }
 
-            app.UseHttpsRedirection();
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDatabaseErrorPage();
+            //    app.UseDeveloperExceptionPage();
+            //}
+
+            app.UseHsts();
+
+            //app.UseHttpsRedirection();
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

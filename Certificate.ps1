@@ -5,7 +5,7 @@
 # setup certificate properties including the commonName (DNSName) property for Chrome 58+
 $certificate = New-SelfSignedCertificate `
     -Subject localhost `
-    -DnsName localhost `
+    -DnsName "localhost", "192.168.1.3", "192.168.1.130" `
     -KeyAlgorithm RSA `
     -KeyLength 2048 `
     -NotBefore (Get-Date) `

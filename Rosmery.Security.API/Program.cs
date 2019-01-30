@@ -35,11 +35,11 @@ namespace Rosmery.Security.API
                 .UseStartup<Startup>()
                 .ConfigureKestrel((context, options) =>
                 {
-                    //options.Listen(IPAddress.Any, 443, listenOptions =>
-                    //{
-
-                    //    listenOptions.UseHttps(GetCert());
-                    //});
+                    options.Listen(IPAddress.Any, 80);
+                    options.Listen(IPAddress.Any, 443, listenOptions =>
+                    {
+                        listenOptions.UseHttps(GetCert());
+                    });
                 });
     }
 }

@@ -14,7 +14,8 @@ $certificate = New-SelfSignedCertificate `
     -FriendlyName "Token Certificate for Identity Server 4" `
     -HashAlgorithm SHA256 `
     -KeyUsage DigitalSignature, KeyEncipherment, DataEncipherment `
-    -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.1") 
+    -TextExtension @("2.5.29.37={textDocumentEncryptionCert}1.3.6.1.5.5.7.3.3") 
+	-Type CodeSigningCert
 $certificatePath = 'Cert:\CurrentUser\My\' + ($certificate.ThumbPrint)
 # create temporary certificate path
 $tmpPath = "C:\Certs"

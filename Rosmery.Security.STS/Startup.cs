@@ -32,7 +32,8 @@ namespace Rosmery.Security.STS
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security", DevelopmentCertification.GetFromContainer());  
+            services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security", DevelopmentCertification.GetFromContainer());
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -47,7 +48,7 @@ namespace Rosmery.Security.STS
             //}
 
             app.UseStaticFiles();
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.AddIdentityServerAppConfiguration();
             app.UseMvcWithDefaultRoute();
         }
