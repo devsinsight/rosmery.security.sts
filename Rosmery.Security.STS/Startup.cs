@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Rosmery.Security.Identity.Configuration;
 using Rosmery.Security.STS.Configuration;
 using Rosmery.Security.STS.Data;
@@ -36,19 +37,20 @@ namespace Rosmery.Security.STS
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<ForwardedHeadersOptions> baseForwardOptions)
         {
             Initializer.EnsureMigration(app);
             Initializer.InitializeDatabase(app);
 
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //    app.UseDatabaseErrorPage();
-            //}
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
 
+            app.UseHsts();
             app.UseStaticFiles();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.AddIdentityServerAppConfiguration();
             app.UseMvcWithDefaultRoute();
         }

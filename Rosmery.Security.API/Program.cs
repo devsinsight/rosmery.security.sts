@@ -17,7 +17,7 @@ namespace Rosmery.Security.API
         }
 
         private static X509Certificate2 GetCert() {
-            using (FileStream certificateStream = File.Open(@"/root/.dotnet/https/development-cert.pfx", FileMode.Open))
+            using (FileStream certificateStream = File.Open(Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Path"), FileMode.Open))
             {
                 byte[] certificatePayload;
                 using (var memoryStream = new MemoryStream())
@@ -26,7 +26,7 @@ namespace Rosmery.Security.API
                     certificatePayload = memoryStream.ToArray();
                 }
 
-                return new X509Certificate2(certificatePayload, "Pass@w0rd1");
+                return new X509Certificate2(certificatePayload, Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Password"));
             }
         }
 
@@ -38,6 +38,7 @@ namespace Rosmery.Security.API
                     options.Listen(IPAddress.Any, 80);
                     options.Listen(IPAddress.Any, 443, listenOptions =>
                     {
+                        
                         listenOptions.UseHttps(GetCert());
                     });
                 });

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Rosmery.Security.API.IdentityServer;
 using Rosmery.Security.Identity.Configuration;
 using System;
@@ -27,6 +28,7 @@ namespace Rosmery.Security.API
             var assemblyName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             var connectionString = Configuration["ConnectionString"];
 
+
             services.AddIdentityConfiguration(assemblyName, connectionString);
 
             services.AddCors();
@@ -48,15 +50,14 @@ namespace Rosmery.Security.API
                 .AllowAnyHeader());
 
 
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDatabaseErrorPage();
-            //    app.UseDeveloperExceptionPage();
-            //}
+            if (env.IsDevelopment())
+            {
+                app.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage();
+            }
 
             app.UseHsts();
-
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
