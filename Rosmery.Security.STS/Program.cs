@@ -20,34 +20,12 @@ namespace Rosmery.Security.STS
             CreateWebHostBuilder(args).Build().Run();
         }
 
-
-        private static X509Certificate2 GetCert()
-        {
-            using (FileStream certificateStream = File.Open(Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Path"), FileMode.Open))
-            {
-                byte[] certificatePayload;
-                using (var memoryStream = new MemoryStream())
-                {
-                    certificateStream.CopyTo(memoryStream);
-                    certificatePayload = memoryStream.ToArray();
-                }
-
-                return new X509Certificate2(certificatePayload, Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Password"));
-            }
-        }
-
-
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .ConfigureKestrel((context, options) =>
                 {
-                    options.AddServerHeader = false;
-                    options.Listen(IPAddress.Any, 80);
-                    options.Listen(IPAddress.Any, 443, listenOptions =>
-                    {
-                        listenOptions.UseHttps(GetCert());
-                    });
+
                 })
                 .UseSerilog((context, configuration) =>
                 {
@@ -57,7 +35,6 @@ namespace Rosmery.Security.STS
                         .MinimumLevel.Override("System", LogEventLevel.Warning)
                         .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
                         .Enrich.FromLogContext()
-                        //.WriteTo.File(@"identityserver4_log.txt")
                         .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Literate);
                 });
     }

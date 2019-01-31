@@ -17,6 +17,7 @@ namespace Rosmery.Security.STS.Configuration
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
+
                 })
                 .AddConfigurationStore(options =>
                 {
