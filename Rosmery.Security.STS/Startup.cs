@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Rosmery.Security.Identity.Configuration;
@@ -34,13 +35,13 @@ namespace Rosmery.Security.STS
 
             services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security", DevelopmentCertification.GetFromContainer());
 
+            services.AddSingleton<IHostedService, SecurityMasterDataBackgroundService>();
+
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<ForwardedHeadersOptions> baseForwardOptions)
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
-            Initializer.EnsureMigration(app);
-            Initializer.InitializeDatabase(app);
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

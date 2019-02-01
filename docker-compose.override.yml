@@ -32,6 +32,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=${ASPNETCORE_KESTREL_CERTIFICATE_PATH}
       - IdentityServer4_Certificate_Token_Path=${ASPNETCORE_IDENTITY_SERVER_CERTIFICATE_PATH}
       - IdentityServer4_Certificate_Token_Password=${ASPNETCORE_IDENTITY_SERVER_CERTIFICATE_PASSWORD}
+      - SecurityAdministratorPassword=${ROSMERY_SECURITY_ADMINISTRATOR_PASSWORD}
     ports:
       - "5000:80"
       - "44356:443"

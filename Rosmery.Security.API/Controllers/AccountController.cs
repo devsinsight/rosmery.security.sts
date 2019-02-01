@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using IdentityModel.Client;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Rosmery.Security.API.IdentityServer;
 using Rosmery.Security.API.Models;
 using Rosmery.Security.Identity.Managers;
 using Rosmery.Security.Identity.Models;
@@ -12,7 +15,7 @@ namespace Rosmery.Security.API.Controllers
     {
         private readonly SecurityUserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
-        private const string SecurityRoleName = "SECURITY_ADMINISTRATOR";
+        private readonly string SecurityRoleName = "Security";
 
         public AccountController(
             SecurityUserManager<User> userManager,
@@ -21,8 +24,6 @@ namespace Rosmery.Security.API.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
-
-        
 
     }
 }
