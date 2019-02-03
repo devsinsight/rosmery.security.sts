@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Rosmery.Security.Identity.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Rosmery.Security.Identity.Managers
@@ -21,6 +22,18 @@ namespace Rosmery.Security.Identity.Managers
         public async Task<bool> ValidateUserAsync(T user, string password)
         {
             return await Task.FromResult(PasswordVerificationResult.Success == _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password));
+        }
+
+        public IEnumerable<User> GetAllUsers() {
+            return from c in Users
+                        select new User {
+                            Id = c.Id,
+                            FirstName = c.FirstName,
+                            LastName = c.LastName,
+                            Email = c.Email,
+                            UserName = c.UserName,
+                            PhoneNumber = c.PhoneNumber
+                        };
         }
     }
 }

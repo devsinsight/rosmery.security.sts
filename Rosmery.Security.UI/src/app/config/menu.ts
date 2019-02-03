@@ -475,8 +475,8 @@ export class MenuConfig implements ConfigModel {
 					{
 						title: 'User',
 						root: true,
-						icon: 'flaticon-settings',
-						page: '/builder'
+						icon: '	flaticon-users',
+						page: '/user'
 					},
 					{
 						title: 'Role',
@@ -485,7 +485,7 @@ export class MenuConfig implements ConfigModel {
 						page: '/builder'
 					},
 					{
-						title: 'Demo',
+						title: 'Builder',
 						root: true,
 						icon: 'flaticon-settings',
 						page: '/builder'

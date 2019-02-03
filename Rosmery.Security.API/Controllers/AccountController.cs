@@ -15,7 +15,6 @@ namespace Rosmery.Security.API.Controllers
     {
         private readonly SecurityUserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
-        private readonly string SecurityRoleName = "Security";
 
         public AccountController(
             SecurityUserManager<User> userManager,

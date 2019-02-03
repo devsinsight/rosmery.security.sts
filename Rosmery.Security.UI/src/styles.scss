@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .mat-table__wrapper {
 	width: 100%;
@@ -108,4 +108,3 @@ mat-radio-button {
 	padding: 0 !important;
 	border-bottom:0 !important;
 }
-

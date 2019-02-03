@@ -39,16 +39,14 @@ const routes: Routes = [
 				path: 'inner',
 				component: InnerComponent
 			},
+			{
+				path: 'user', 
+				loadChildren: './user/user.module#UserModule'
+			}
 		]
 	},
-	{
-		path: 'login',
-		component: LoginComponent
-	},
-	{
-		path: 'logout',
-		component: LogoutComponent
-	},
+	{ path: 'login', component: LoginComponent },
+	{ path: 'logout', component: LogoutComponent },
 	{ path: 'signin-callback', component: SigninCallbackComponent },
   	{ path: 'signout-callback', component: SignoutCallbackComponent },
   	{ path: 'silent-renew-callback', component: SilentRenewCallbackComponent },

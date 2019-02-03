@@ -49,9 +49,12 @@ namespace Rosmery.Security.STS.Data
                 var userManager = scope.ServiceProvider.GetRequiredService<SecurityUserManager<User>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
 
-                await CreateSecurityUser(userManager, user, _configuration["SecurityAdministratorPassword"]);
-                await CreateSecurityRole(roleManager);
-                await AsignSecurityRole(userManager, user);
+                if (!userManager.Users.Any())
+                { 
+                    await CreateSecurityUser(userManager, user, _configuration["SecurityAdministratorPassword"]);
+                    await CreateSecurityRole(roleManager);
+                    await AsignSecurityRole(userManager, user);
+                }
             }
         }
 

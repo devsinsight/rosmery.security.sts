@@ -47,7 +47,7 @@ import { AuthService } from '../../core/auth/services/auth.service';
 		  provide: HTTP_INTERCEPTORS,
 		  useClass: AuthInterceptorService,
 		  multi: true
-		},]
+		}]
 })
 export class PagesModule {
 }

@@ -94,6 +94,33 @@ export const locale = {
 					ADD_MESSAGE: 'Customer has been created'
 				}
 			}
+		},
+		SECURITY: {
+			USERS: {
+				USERS: 'Users',
+				USERS_LIST: 'Users list',
+				NEW_USER: 'New User',
+				DELETE_USER_SIMPLE: {
+					TITLE: 'User Delete',
+					DESCRIPTION: 'Are you sure to permanently delete this user?',
+					WAIT_DESCRIPTION: 'User is deleting...',
+					MESSAGE: 'User has been deleted'
+				},
+				DELETE_USER_MULTY: {
+					TITLE: 'Users Delete',
+					DESCRIPTION: 'Are you sure to permanently delete selected users?',
+					WAIT_DESCRIPTION: 'Users are deleting...',
+					MESSAGE: 'Selected users have been deleted'
+				},
+				UPDATE_STATUS: {
+					TITLE: 'Status has been updated for selected users',
+					MESSAGE: 'Selected user status have successfully been updated'
+				},
+				EDIT: {
+					UPDATE_MESSAGE: 'User has been updated',
+					ADD_MESSAGE: 'User has been created'
+				}
+			}
 		}
 	}
 };

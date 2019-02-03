@@ -19,6 +19,11 @@ export class PagesConfig implements ConfigModel {
 					page: { title: 'Actions', desc: 'actions example page' }
 				}
 			},
+			user: {
+				actions: {
+					page: { title: 'User', desc: 'user page' }
+				}
+			},
 			profile: {
 				page: { title: 'User Profile', desc: '' }
 			},

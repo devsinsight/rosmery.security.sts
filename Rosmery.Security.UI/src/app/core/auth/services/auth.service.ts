@@ -22,7 +22,6 @@ export class AuthService {
       });
 
     this.manager.events.addUserLoaded(user => {
-      console.log('user loaded: ', user);
       this.user = user;
       this.userLoadedEvent.emit(user);
     });
@@ -32,7 +31,6 @@ export class AuthService {
     });
 
     this.manager.events.addAccessTokenExpiring( (e) => {
-      console.log('access token expiring!');
       this.manager.removeUser();
     });
 
@@ -57,7 +55,6 @@ export class AuthService {
 
   endSigninMainWindow(): Promise<void> {
       return this.manager.signinRedirectCallback().then(user => {
-          console.log("EL USER:", user)
           this.user = user;
       });
   }
