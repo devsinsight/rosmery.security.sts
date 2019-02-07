@@ -35,5 +35,10 @@ namespace Rosmery.Security.Identity.Managers
                             PhoneNumber = c.PhoneNumber
                         };
         }
+
+        public bool UserNameExists(string userName)
+        {
+            return Users.Any(u => u.UserName == userName);
+        }
     }
 }

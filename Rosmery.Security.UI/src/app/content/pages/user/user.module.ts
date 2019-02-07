@@ -44,6 +44,7 @@ import { UserManagementComponent } from './components/user-management/user-manag
 import { UserEditDialogComponent } from './components/user-edit/user-edit.dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { TypesUtilsService } from './services/types-utils.service';
+import { RoleService } from './services/role.service';
 
 @NgModule({
     declarations: [
@@ -99,6 +100,7 @@ import { TypesUtilsService } from './services/types-utils.service';
 	],
     providers: [
 		UserService,
+		RoleService,
 		HttpUtilsService,
 		LayoutUtilsService,
 		TypesUtilsService,

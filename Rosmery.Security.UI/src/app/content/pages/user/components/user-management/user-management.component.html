@@ -32,37 +32,6 @@
 				<div class="row align-items-center">
 
 					<div class="col-md-2 m--margin-bottom-10-mobile">
-						<!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->
-						<div class="m-form__control">
-							<mat-form-field class="mat-form-field-fluid">
-								<mat-select [(value)]="filterStatus" (selectionChange)="loadUsersList()">
-									<mat-option value="">All</mat-option>
-									<mat-option value="0">Suspended</mat-option>
-									<mat-option value="1">Active</mat-option>
-									<mat-option value="Pending">Pending</mat-option>
-								</mat-select>
-								<mat-hint align="start">
-									<strong>Filter</strong> by Status</mat-hint>
-							</mat-form-field>
-						</div>
-					</div>
-
-					<div class="col-md-2 m--margin-bottom-10-mobile">
-
-						<div class="m-form__control">
-							<mat-form-field class="mat-form-field-fluid">
-								<mat-select [(value)]="filterType" (selectionChange)="loadUsersList()">
-									<mat-option value="">All</mat-option>
-									<mat-option value="0">Business</mat-option>
-									<mat-option value="1">Individual</mat-option>
-								</mat-select>
-								<mat-hint align="start">
-									<strong>Filter</strong> by Type</mat-hint>
-							</mat-form-field>
-						</div>
-					</div>
-
-					<div class="col-md-2 m--margin-bottom-10-mobile">
 						<mat-form-field class="mat-form-field-fluid">
 							<input matInput placeholder="Search User" #searchInput placeholder="Search">
 							<mat-hint align="start">
@@ -107,14 +76,9 @@
 		</div>
 		<!-- end::FILTERS & GROUP ACTIONS -->
 
-		<!-- MATERIAL TABLE | Binded to datasources -->
-		<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->
 		<div class="mat-table__wrapper">
 			<mat-table class="lmat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
-				<!-- Checkbox Column -->
 
-				<!-- Table with selection -->
-				<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
 				<ng-container matColumnDef="select">
 					<mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
 						<mat-checkbox (change)="$event ? masterToggle() : null"
@@ -123,7 +87,9 @@
 						</mat-checkbox>
 					</mat-header-cell>
 					<mat-cell *matCellDef="let row" class="mat-column-checkbox">
-						<mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+						<mat-checkbox (click)="$event.stopPropagation()" 
+							(change)="$event ? selection.toggle(row) : null" 
+							[checked]="selection.isSelected(row)">
 						</mat-checkbox>
 					</mat-cell>
 				</ng-container>
@@ -156,8 +122,8 @@
 				</ng-container>
 
 				<ng-container matColumnDef="roles">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>Roles</mat-header-cell>
-					<mat-cell *matCellDef="let user">{{user.roles.join(',')}}</mat-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="role-cell">Role</mat-header-cell>
+					<mat-cell *matCellDef="let user" class="role-cell">{{user.role?.name}}</mat-cell>
 				</ng-container>
 
 				<ng-container matColumnDef="actions">

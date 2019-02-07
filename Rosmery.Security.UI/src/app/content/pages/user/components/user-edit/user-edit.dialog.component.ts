@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TypesUtilsService } from '../../services/types-utils.service';
 import { UserService } from '../../services/user.service';
 import { UserModel } from '../../models/user.model';
+import { RoleModel } from '../../models/role.model';
 
 @Component({
 	selector: 'm-user-edit-dialog',
@@ -12,6 +13,7 @@ import { UserModel } from '../../models/user.model';
 })
 export class UserEditDialogComponent implements OnInit {
 	user: UserModel;
+	roles: RoleModel[];
 	userForm: FormGroup;
 	hasFormErrors: boolean = false;
 	viewLoading: boolean = false;
@@ -26,12 +28,15 @@ export class UserEditDialogComponent implements OnInit {
 	/** LOAD DATA */
 	ngOnInit() {
 		this.user = this.data.user;
+		console.log(this.user)
+		this.roles = this.data.roles;
 		this.createForm();
-
+		
+		
 		/* Server loading imitation. Remove this on real code */
-		this.viewLoading = true;
+		//this.viewLoading = true;
 		//setTimeout(() => {
-			this.viewLoading = false;
+			//this.viewLoading = false;
 		//}, 1000);
 	}
 
@@ -41,13 +46,14 @@ export class UserEditDialogComponent implements OnInit {
 			firstName: [this.user.firstName, Validators.required],
 			lastName: [this.user.lastName, Validators.required],
 			email: [ this.user.email, [Validators.required, Validators.email]],
-			phoneNumber: [this.user.phoneNumber, Validators.required]	
+			phoneNumber: [this.user.phoneNumber, Validators.required],
+			roleId: [this.user.role.id, Validators.required ]
 		});
 	}
 
 	/** UI */
 	getTitle(): string {
-		if (this.user.id) {
+		if (this.user.userId) {
 			return `Edit User '${this.user.firstName} ${this.user.lastName}'`;
 		}
 
@@ -64,12 +70,13 @@ export class UserEditDialogComponent implements OnInit {
 	prepareCustomer(): UserModel {
 		const controls = this.userForm.controls;
 		const _user = new UserModel();
-		_user.id = this.user.id;
+		_user.userId = this.user.userId;
 		_user.firstName = controls['firstName'].value;
 		_user.lastName = controls['lastName'].value;
 		_user.email = controls['email'].value;
 		_user.userName = controls['userName'].value;
 		_user.phoneNumber = controls['phoneNumber'].value;
+		_user.roleId = controls['roleId'].value;
 		return _user;
 	}
 
@@ -88,14 +95,14 @@ export class UserEditDialogComponent implements OnInit {
 		}
 
 		const editedCustomer = this.prepareCustomer();
-		if (editedCustomer.id) {
-			this.updateCustomer(editedCustomer);
+		if (editedCustomer.userId) {
+			this.updateUser(editedCustomer);
 		} else {
-			this.createCustomer(editedCustomer);
+			this.createUser(editedCustomer);
 		}
 	}
 
-	updateCustomer(_user: UserModel) {
+	updateUser(_user: UserModel) {
 		this.loadingAfterSubmit = true;
 		this.viewLoading = true;
 		this.userService.updateUser(_user).subscribe(res => {
@@ -109,7 +116,7 @@ export class UserEditDialogComponent implements OnInit {
 		});
 	}
 
-	createCustomer(_user: UserModel) {
+	createUser(_user: UserModel) {
 		this.loadingAfterSubmit = true;
 		this.viewLoading = true;
 		this.userService.createUser(_user).subscribe(res => {

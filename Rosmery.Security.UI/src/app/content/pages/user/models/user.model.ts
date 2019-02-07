@@ -1,11 +1,14 @@
+import { RoleModel } from './role.model';
+
 export class UserModel {
-    id: string;
+    userId: string;
     userName: string;
     firstName: string;
     lastName: string;
     email: string;
     phoneNumber: string;
-    roles: string[];
+    role: RoleModel;
+    roleId: string;
     isActive: boolean;
 
     fullName(): string{
@@ -13,12 +16,12 @@ export class UserModel {
     }
 
     clear(): void {
-        this.id = '';
+        this.userId = '';
         this.userName = '';
         this.firstName = '';
         this.lastName = '';
         this.email = '';
         this.phoneNumber ='';
-        this.isActive = false;
+        this.role = new RoleModel();
     }
 }

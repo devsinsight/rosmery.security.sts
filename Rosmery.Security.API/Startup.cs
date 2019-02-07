@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Rosmery.Security.API.IdentityServer;
 using Rosmery.Security.Identity.Configuration;
 using System;
@@ -34,6 +33,8 @@ namespace Rosmery.Security.API
             services.AddCors();
 
             services.AddAccessTokenValidationServiceConfiguration(new ApiResources(Configuration));
+
+            services.AddAutoMapper();
 
             services.AddMvcCore()
                 .AddAuthorization()

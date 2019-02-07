@@ -79,6 +79,20 @@
 						</mat-hint>
 					</mat-form-field>
 				</div>
+
+				<div class="col-lg-4 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select formControlName="roleId" >
+							<mat-option [value]="role.id" *ngFor="let role of roles">{{role.name}}</mat-option>
+						</mat-select>
+						<mat-error>Role is
+								<strong>required</strong>
+							</mat-error>
+						<mat-hint align="start">Please select
+							<strong>Role</strong>
+						</mat-hint>
+					</mat-form-field>	
+				</div>
 			</div>
 			<div class="m-separator m-separator--dashed"></div>
 			<div class="form-group m-form__group row">

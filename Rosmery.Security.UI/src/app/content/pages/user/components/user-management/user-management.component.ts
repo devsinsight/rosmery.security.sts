@@ -16,6 +16,8 @@ import { UserModel } from '../../models/user.model';
 import { UserDataSource } from '../../datasources/user.datasource';
 // Components
 import { UserEditDialogComponent } from '../user-edit/user-edit.dialog.component';
+import { RoleService } from '../../services/role.service';
+import { RoleModel } from '../../models/role.model';
 
 @Component({
 	selector: 'app-user-management',
@@ -35,9 +37,11 @@ export class UserManagementComponent implements OnInit {
 
 	selection = new SelectionModel<UserModel>(true, []);
 	usersResult: UserModel[] = [];
+	rolesResult: RoleModel[] = [];
 
 	constructor(
 		private userService: UserService,
+		private roleService: RoleService,
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar,
 		private layoutUtilsService: LayoutUtilsService,
@@ -79,6 +83,9 @@ export class UserManagementComponent implements OnInit {
 		// First load
 		this.dataSource.loadUsers(queryParams);
 		this.dataSource.entitySubject.subscribe(res => (this.usersResult = res));
+
+		//Load List of Roles
+		this.roleService.getAllRoles().subscribe( result => this.rolesResult = result );
 	}
 
 	loadUsersList() {
@@ -121,7 +128,7 @@ export class UserManagementComponent implements OnInit {
 				return;
 			}
 
-			this.userService.deleteUser(_item.id).subscribe(() => {
+			this.userService.deleteUser(_item.userId).subscribe(() => {
 				this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
 				this.loadUsersList();
 			});
@@ -143,7 +150,7 @@ export class UserManagementComponent implements OnInit {
 
 			const idsForDeletion: string[] = [];
 			for (let i = 0; i < this.selection.selected.length; i++) {
-				idsForDeletion.push(this.selection.selected[i].id);
+				idsForDeletion.push(this.selection.selected[i].userId);
 			}
 			this.userService
 				.deleteUsers(idsForDeletion)
@@ -161,7 +168,7 @@ export class UserManagementComponent implements OnInit {
 		this.selection.selected.forEach(elem => {
 			messages.push({
 				text: elem.firstName + ' ' + elem.lastName,
-				id: elem.id.toString(),
+				id: elem.userId.toString(),
 				
 			});
 		});
@@ -177,10 +184,7 @@ export class UserManagementComponent implements OnInit {
 		this.selection.selected.forEach(elem => {
 			_messages.push({
 				text: `${elem.lastName}, ${elem.firstName}`,
-				id: elem.id.toString(),
-				
-				//statusTitle: this.getItemStatusString(elem.status),
-				//statusCssClass: this.getItemCssClassByStatus(elem.status)
+				id: elem.userId.toString(),
 			});
 		});
 		
@@ -210,10 +214,10 @@ export class UserManagementComponent implements OnInit {
 
 	editUser(user: UserModel) {
 		let saveMessageTranslateParam = 'SECURITY.USERS.EDIT.';
-		saveMessageTranslateParam += !!user.id ? 'UPDATE_MESSAGE' : 'ADD_MESSAGE';
+		saveMessageTranslateParam += !!user.userId ? 'UPDATE_MESSAGE' : 'ADD_MESSAGE';
 		const _saveMessage = this.translate.instant(saveMessageTranslateParam);
-		const _messageType = !!user.id ? MessageType.Update : MessageType.Create;
-		const dialogRef = this.dialog.open(UserEditDialogComponent, { data: { user } });
+		const _messageType = !!user.userId ? MessageType.Update : MessageType.Create;
+		const dialogRef = this.dialog.open(UserEditDialogComponent, { data: { user, roles: this.rolesResult } });
 		dialogRef.afterClosed().subscribe(res => {
 			if (!res) {
 				return;
@@ -239,49 +243,4 @@ export class UserManagementComponent implements OnInit {
 		}
 	}
 
-	getItemCssClassByStatus(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'metal';
-			case 1:
-				return 'success';
-			case 2:
-				return 'danger';
-		}
-		return '';
-	}
-
-	getItemStatusString(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'Suspended';
-			case 1:
-				return 'Active';
-			case 2:
-				return 'Pending';
-		}
-		return '';
-	}
-
-	getItemCssClassByType(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'accent';
-			case 1:
-				return 'primary';
-			case 2:
-				return '';
-		}
-		return '';
-	}
-
-	getItemTypeString(status: number = 0): string {
-		switch (status) {
-			case 0:
-				return 'Business';
-			case 1:
-				return 'Individual';
-		}
-		return '';
-	}
 }
