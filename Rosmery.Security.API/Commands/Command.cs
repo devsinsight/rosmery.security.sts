@@ -7,6 +7,6 @@ namespace Rosmery.Security.API.Commands
 {
     public class Command
     {
-        public Guid CommandId { get; set; }
+        public Guid CommandId => Guid.NewGuid();
     }
 }

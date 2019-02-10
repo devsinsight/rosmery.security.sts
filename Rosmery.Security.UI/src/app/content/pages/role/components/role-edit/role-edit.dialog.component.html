@@ -1,0 +1,70 @@
+<div class="m-portlet" [ngClass]="{ 'm-portlet--body-progress' : viewLoading, 'm-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="m-portlet__head">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<span class="m-portlet__head-icon m--hide">
+					<i class="la la-gear"></i>
+				</span>
+				<h3 class="m-portlet__head-text">{{getTitle()}}</h3>
+			</div>
+		</div>
+	</div>
+	<form class="m-form" [formGroup]="roleForm">
+		<div class="m-portlet__body">
+
+			<div class="m-portlet__body-progress">
+				<mat-spinner [diameter]="20"></mat-spinner>
+			</div>
+
+			<m-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
+				Oh snap! Change a few things up and try submitting again.
+			</m-alert>
+
+			<div class="form-group m-form__group row">
+				<div class="col-lg-4 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Name" formControlName="name" />
+						<mat-error *ngIf="roleForm.get('name').errors">
+							<span *ngIf="roleForm.get('name').errors.required">Name is<strong > required</strong><br /></span>
+							<span *ngIf="roleForm.get('name').errors.pattern">Name is <strong > alphanumeric</strong><br /></span>
+							<span *ngIf="roleForm.get('name').errors.reserved">Name <strong > exists</strong><br /></span>
+							<span *ngIf="roleForm.get('name').errors.minlength">Name min length is <strong>5</strong><br /></span>
+							<span *ngIf="roleForm.get('name').errors.maxlength">Name max length is <strong>50</strong><br /></span>
+						</mat-error>
+						<mat-hint align="start">Please enter
+							<strong>Name</strong>
+						</mat-hint>
+					</mat-form-field>
+				</div>
+			</div>
+			
+			<div class="form-group m-form__group row">
+				<div class="col-lg-12 m--margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<textarea matInput placeholder="Enter Description" formControlName="description"></textarea>
+						<mat-error *ngIf="roleForm.get('description').errors">
+							<span *ngIf="roleForm.get('description').errors.maxlength">Description max lenght is<strong>500</strong></span>
+						</mat-error>
+						<mat-hint align="start">Please enter
+							<strong>Description</strong>
+						</mat-hint>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+			<div class="m-form__actions m-form__actions--solid">
+				<div class="row text-right">
+					<div class="col-lg-12">
+						<button type="button" mat-raised-button [mat-dialog-close]="data.animal" cdkFocusInitial matTooltip="Cancel changes">
+							Cancel
+						</button>&nbsp;
+						<button type="button" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="viewLoading" matTooltip="Save changes">
+							Save
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

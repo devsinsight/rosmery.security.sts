@@ -40,5 +40,10 @@ namespace Rosmery.Security.Identity.Managers
         {
             return Users.Any(u => u.UserName == userName);
         }
+
+        public bool UserNameExists(string oldUserName, string userName)
+        {
+            return Users.Any(u => u.UserName == userName && u.UserName != oldUserName);
+        }
     }
 }

@@ -14,24 +14,19 @@ const API_USERS_URL = environment.baseSeurityApiUrl;
 export class UserService {
 	constructor(private http: HttpClient, private httpUtils: HttpUtilsService) { }
 
-	// CREATE =>  POST: add a new customer to the server
 	createUser(user: UserModel): Observable<UserModel> {
-		// Note: Add headers if needed (tokens/bearer)
 		const httpHeaders = this.httpUtils.getHTTPHeaders();
 		return this.http.post<UserModel>(API_USERS_URL + '/api/user/CreateUser', user, { headers: httpHeaders});
 	}
 
-	// READ
 	getAllUsers(): Observable<UserModel[]> {
         return this.http.get<UserModel[]>(API_USERS_URL + '/api/user/GetUsers');
 	}
 
-	getCustomerById(userId: string): Observable<UserModel> {
+	getUserById(userId: string): Observable<UserModel> {
 		return this.http.get<UserModel>(API_USERS_URL + `/${userId}`);
 	}
 
-	// Method from server should return QueryResultsModel(items: any[], totalsCount: number)
-	// items => filtered/sorted result
 	findUsers(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
 		return this.http.get<UserModel[]>(API_USERS_URL + '/api/user/GetUsers').pipe(
 			mergeMap(res => {
@@ -41,14 +36,11 @@ export class UserService {
 		);
 	}
 
-
-	// UPDATE => PUT: update the customer on the server
-	updateUser(customer: UserModel): Observable<any> {
+	updateUser(user: UserModel): Observable<any> {
 		const httpHeader = this.httpUtils.getHTTPHeaders();
-		return this.http.put(API_USERS_URL + '/api/user/UpdateUser', customer, { headers: httpHeader });
+		return this.http.put(API_USERS_URL + '/api/user/UpdateUser', user, { headers: httpHeader });
 	}
 
-	// UPDATE Status
 	updateStatusForUser(users: UserModel[], isActive: boolean): Observable<any> {
 		const tasks$ = [];
 		for (let i = 0; i < users.length; i++) {
@@ -59,7 +51,6 @@ export class UserService {
 		return forkJoin(tasks$);
 	}
 
-	// DELETE => delete the customer from the server
 	deleteUser(userId: string): Observable<UserModel> {
 		const url = `${API_USERS_URL}/api/user/DeleteUser/${userId}`;
 		return this.http.delete<UserModel>(url);
@@ -72,5 +63,9 @@ export class UserService {
 			tasks$.push(this.deleteUser(ids[i]));
 		}
 		return forkJoin(tasks$);
+	}
+
+	validateUserName(userName: string) {
+		return this.http.get(`${API_USERS_URL}/api/user/ValidateUserName/${userName || '*'}`)
 	}
 }

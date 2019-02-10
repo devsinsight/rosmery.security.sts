@@ -24,8 +24,10 @@
 				<div class="col-lg-4 m--margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
 						<input matInput placeholder="Enter First Name" formControlName="firstName" />
-						<mat-error>First Name is
-							<strong>required</strong>
+						<mat-error *ngIf="userForm.get('firstName').errors">
+							<span *ngIf="userForm.get('firstName').errors.required">First Name is<strong > required</strong><br /></span>
+							<span *ngIf="userForm.get('firstName').errors.minlength">First Name min length is <strong>2</strong><<br /></span>
+							<span *ngIf="userForm.get('firstName').errors.maxlength">First Name max length is <strong>200</strong><br /></span>
 						</mat-error>
 						<mat-hint align="start">Please enter
 							<strong>First Name</strong>
@@ -35,8 +37,10 @@
 				<div class="col-lg-4 m--margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
 						<input matInput placeholder="Enter Last Name" formControlName="lastName" />
-						<mat-error>Last Name is
-							<strong>required</strong>
+						<mat-error *ngIf="userForm.get('lastName').errors">
+							<span *ngIf="userForm.get('lastName').errors.required">Last Name is<strong > required</strong><br /></span>
+							<span *ngIf="userForm.get('lastName').errors.minlength">Last Name min length is <strong>2</strong><br /></span>
+							<span *ngIf="userForm.get('lastName').errors.maxlength">Last Name max length is <strong>200</strong><br /></span>
 						</mat-error>
 						<mat-hint align="start">Please enter
 							<strong>Last Name</strong>
@@ -46,8 +50,12 @@
 				<div class="col-lg-4 m--margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
 						<input matInput placeholder="Enter Login" formControlName="userName" />
-						<mat-error>Login is
-							<strong>required</strong>
+						<mat-error *ngIf="userForm.get('userName').errors">
+							<span *ngIf="userForm.get('userName').errors.required">Login is<strong > required</strong><br /></span>
+							<span *ngIf="userForm.get('userName').errors.pattern">Login is <strong > alphanumeric</strong><br /></span>
+							<span *ngIf="userForm.get('userName').errors.reserved">Login <strong > exists</strong><br /></span>
+							<span *ngIf="userForm.get('userName').errors.minlength">Login min length is <strong>5</strong><br /></span>
+							<span *ngIf="userForm.get('userName').errors.maxlength">Login max length is <strong>50</strong><br /></span>
 						</mat-error>
 						<mat-hint align="start">Please enter
 							<strong>Login</strong>
@@ -60,8 +68,11 @@
 				<div class="col-lg-4 m--margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
 						<input type="email" matInput placeholder="Enter Email" formControlName="email" />
-						<mat-error>Email is
-							<strong>required</strong>
+						<mat-error *ngIf="userForm.get('email').errors">
+							<span *ngIf="userForm.get('email').errors.required">Email is<strong > required</strong><br /></span>
+							<span *ngIf="userForm.get('email').errors.email">Email pattern is <strong>incorrect</strong><br /></span>
+							<span *ngIf="userForm.get('email').errors.minlength">Email min length is <strong>8</strong><br /></span>
+							<span *ngIf="userForm.get('email').errors.maxlength">Email max length is <strong>256</strong><br /></span>
 						</mat-error>
 						<mat-hint align="start">Please enter
 							<strong>Email</strong>
@@ -71,8 +82,10 @@
 				<div class="col-lg-4 m--margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
 						<input matInput placeholder="Enter Phone Number" formControlName="phoneNumber" />
-						<mat-error>Phone Number is
-							<strong>required</strong>
+						<mat-error *ngIf="userForm.get('phoneNumber').errors">
+							<span *ngIf="userForm.get('phoneNumber').errors.required">Email is<strong > required</strong><br /></span>
+							<span *ngIf="userForm.get('phoneNumber').errors.minlength">Email min length is <strong>5</strong><br /></span>
+							<span *ngIf="userForm.get('phoneNumber').errors.maxlength">Email max length is <strong>100</strong><br /></span>
 						</mat-error>
 						<mat-hint align="start">Please enter
 							<strong>Phone Number</strong>
@@ -106,7 +119,7 @@
 						<button type="button" mat-raised-button [mat-dialog-close]="data.animal" cdkFocusInitial matTooltip="Cancel changes">
 							Cancel
 						</button>&nbsp;
-						<button type="button" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="viewLoading" matTooltip="Save changes">
+						<button type="button" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="userForm.invalid" matTooltip="Save changes">
 							Save
 						</button>
 					</div>

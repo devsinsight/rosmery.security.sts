@@ -7,28 +7,26 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { fromEvent, merge, forkJoin } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 // Services
-import { UserService } from '../../services/user.service';
 import { RoleService } from '../../services/role.service';
 import { LayoutUtilsService, MessageType } from '../../services/layout-utils.service';
 
 // Models
 import { QueryParamsModel } from '../../models/query-params.model';
-import { UserModel } from '../../models/user.model';
 import { RoleModel } from '../../models/role.model';
-import { UserDataSource } from '../../datasources/user.datasource';
+import { RoleDataSource } from '../../datasources/role.datasource';
 // Components
-import { UserEditDialogComponent } from '../user-edit/user-edit.dialog.component';
+import { RoleEditDialogComponent } from '../role-edit/role-edit.dialog.component';
 
 
 @Component({
-	selector: 'app-user-management',
-	templateUrl: './user-management.component.html',
+	selector: 'app-role-management',
+	templateUrl: './role-management.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserManagementComponent implements OnInit {
+export class RoleManagementComponent implements OnInit {
 
-	dataSource: UserDataSource;
-	displayedColumns = ['select', 'lastName', 'firstName', 'email', 'phoneNumber', 'userName', 'roles', 'actions'];
+	dataSource: RoleDataSource;
+	displayedColumns = ['select', 'name', 'hasUsers', 'actions'];
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 
@@ -36,12 +34,10 @@ export class UserManagementComponent implements OnInit {
 	filterStatus: string = '';
 	filterType: string = '';
 
-	selection = new SelectionModel<UserModel>(true, []);
-	usersResult: UserModel[] = [];
+	selection = new SelectionModel<RoleModel>(true, []);
 	rolesResult: RoleModel[] = [];
 
 	constructor(
-		private userService: UserService,
 		private roleService: RoleService,
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar,
@@ -56,7 +52,7 @@ export class UserManagementComponent implements OnInit {
 		merge(this.sort.sortChange, this.paginator.page)
 			.pipe(
 				tap(() => {
-					this.loadUsersList();
+					this.loadRolesList();
 				})
 			)
 			.subscribe();
@@ -68,23 +64,20 @@ export class UserManagementComponent implements OnInit {
 				distinctUntilChanged(), 
 				tap(() => {
 					this.paginator.pageIndex = 0;
-					this.loadUsersList();
+					this.loadRolesList();
 				})
 			)
 			.subscribe();
 
 		// Init DataSource
 		const queryParams = new QueryParamsModel(this.filterConfiguration(false));
-		this.dataSource = new UserDataSource(this.userService);
+		this.dataSource = new RoleDataSource(this.roleService);
 		// First load
-		this.dataSource.loadUsers(queryParams);
-		this.dataSource.entitySubject.subscribe(res => (this.usersResult = res));
-
-		//Load List of Roles
-		this.roleService.getAllRoles().subscribe( result => this.rolesResult = result );
+		this.dataSource.loadRoles(queryParams);
+		this.dataSource.entitySubject.subscribe(res => (this.rolesResult = res));
 	}
 
-	loadUsersList() {
+	loadRolesList() {
 		this.selection.clear();
 		const queryParams = new QueryParamsModel(
 			this.filterConfiguration(true),
@@ -93,7 +86,7 @@ export class UserManagementComponent implements OnInit {
 			this.paginator.pageIndex,
 			this.paginator.pageSize
 		);
-		this.dataSource.loadUsers(queryParams);
+		this.dataSource.loadRoles(queryParams);
 		this.selection.clear();
 	}
 
@@ -101,22 +94,18 @@ export class UserManagementComponent implements OnInit {
 		const filter: any = {};
 		const searchText: string = this.searchInput.nativeElement.value;
 
-		filter.lastName = searchText;
-		if (!isGeneralSearch) {
-			return filter;
-		}
 
-		filter.firstName = searchText;
-		filter.email = searchText;
+		filter.name = searchText;
+		
 
 		return filter;
 	}
 
-	deleteUser(_item: UserModel) {
-		const _title: string = this.translate.instant('SECURITY.USERS.DELETE_USER_SIMPLE.TITLE');
-		const _description: string = this.translate.instant('SECURITY.USERS.DELETE_USER_SIMPLE.DESCRIPTION');
-		const _waitDesciption: string = this.translate.instant('SECURITY.USERS.DELETE_USER_SIMPLE.WAIT_DESCRIPTION');
-		const _deleteMessage = this.translate.instant('SECURITY.USERS.DELETE_USER_SIMPLE.MESSAGE');
+	deleteRole(_item: RoleModel) {
+		const _title: string = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_SIMPLE.TITLE');
+		const _description: string = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_SIMPLE.DESCRIPTION');
+		const _waitDesciption: string = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_SIMPLE.WAIT_DESCRIPTION');
+		const _deleteMessage = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_SIMPLE.MESSAGE');
 		
 		const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
 		dialogRef.afterClosed().subscribe(res => {
@@ -124,19 +113,19 @@ export class UserManagementComponent implements OnInit {
 				return;
 			}
 
-			this.userService.deleteUser(_item.userId).subscribe(() => {
+			this.roleService.deleteRole(_item.id).subscribe(() => {
 				this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
-				this.loadUsersList();
+				this.loadRolesList();
 			});
 		});
 		
 	}
 
-	deleteUsers() {
-		const _title: string = this.translate.instant('SECURITY.USERS.DELETE_USER_MULTY.TITLE');
-		const _description: string = this.translate.instant('SECURITY.USERS.DELETE_USER_MULTY.DESCRIPTION');
-		const _waitDesciption: string = this.translate.instant('SECURITY.USERS.DELETE_USER_MULTY.WAIT_DESCRIPTION');
-		const _deleteMessage = this.translate.instant('SECURITY.USERS.DELETE_USER_MULTY.MESSAGE');
+	deleteRoles() {
+		const _title: string = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_MULTY.TITLE');
+		const _description: string = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_MULTY.DESCRIPTION');
+		const _waitDesciption: string = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_MULTY.WAIT_DESCRIPTION');
+		const _deleteMessage = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_MULTY.MESSAGE');
 		
 		const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
 		dialogRef.afterClosed().subscribe(res => {
@@ -146,96 +135,96 @@ export class UserManagementComponent implements OnInit {
 
 			const idsForDeletion: string[] = [];
 			for (let i = 0; i < this.selection.selected.length; i++) {
-				idsForDeletion.push(this.selection.selected[i].userId);
+				idsForDeletion.push(this.selection.selected[i].id);
 			}
-			this.userService
-				.deleteUsers(idsForDeletion)
+			this.roleService
+				.deleteRoles(idsForDeletion)
 				.subscribe(() => {
 					this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
-					this.loadUsersList();
+					this.loadRolesList();
 					this.selection.clear();
 				});
 		});
 		
 	}
 
-	fetchUsers() {
+	fetchRoles() {
 		const messages = [];
 		this.selection.selected.forEach(elem => {
 			messages.push({
-				text: elem.firstName + ' ' + elem.lastName,
-				id: elem.userId.toString(),
-				
+				text: elem.name,
+				id: elem.id,
+				hasUsers: elem.hasUsers ? 'Has Users' : 'Empty'
 			});
 		});
 		this.layoutUtilsService.fetchElements(messages);
 	}
 
-	updateStatusForUsers() {
-		const _title = this.translate.instant('SECURITY.USERS.UPDATE_STATUS.TITLE');
-		const _updateMessage = this.translate.instant('SECURITY.USERS.UPDATE_STATUS.MESSAGE');
+	updateStatusForRoles() {
+		const _title = this.translate.instant('SECURITY.ROLES.UPDATE_STATUS.TITLE');
+		const _updateMessage = this.translate.instant('SECURITY.ROLES.UPDATE_STATUS.MESSAGE');
 		const _statuses = [{ value: 0, text: 'Suspended' }, { value: 1, text: 'Active' }, { value: 2, text: 'Pending' }];
 		const _messages = [];
 
 		this.selection.selected.forEach(elem => {
 			_messages.push({
-				text: `${elem.lastName}, ${elem.firstName}`,
-				id: elem.userId.toString(),
+				text: `${elem.name}`,
+				id: elem.id.toString(),
 			});
 		});
 		
-		const dialogRef = this.layoutUtilsService.updateStatusForUsers(_title, _statuses, _messages);
+		const dialogRef = this.layoutUtilsService.updateStatusForRoles(_title, _statuses, _messages);
 		dialogRef.afterClosed().subscribe(res => {
 			if (!res) {
 				this.selection.clear();
 				return;
 			}
 
-			this.userService
-				.updateStatusForUser(this.selection.selected, res)
+			this.roleService
+				.updateStatusForRole(this.selection.selected, res)
 				.subscribe(() => {
 					this.layoutUtilsService.showActionNotification(_updateMessage, MessageType.Update);
-					this.loadUsersList();
+					this.loadRolesList();
 					this.selection.clear();
 				});
 		});
 		
 	}
 
-	addUser() {
-		const newUser = new UserModel();
-		newUser.clear();
-		this.editUser(newUser);
+	addRole() {
+		const newRole = new RoleModel();
+		newRole.clear();
+		this.editRole(newRole);
 	}
 
-	editUser(user: UserModel) {
-		let saveMessageTranslateParam = 'SECURITY.USERS.EDIT.';
-		saveMessageTranslateParam += !!user.userId ? 'UPDATE_MESSAGE' : 'ADD_MESSAGE';
+	editRole(role: RoleModel) {
+		let saveMessageTranslateParam = 'SECURITY.ROLES.EDIT.';
+		saveMessageTranslateParam += !!role.id ? 'UPDATE_MESSAGE' : 'ADD_MESSAGE';
 		const _saveMessage = this.translate.instant(saveMessageTranslateParam);
-		const _messageType = !!user.userId ? MessageType.Update : MessageType.Create;
-		const dialogRef = this.dialog.open(UserEditDialogComponent, { data: { user, roles: this.rolesResult } });
+		const _messageType = !!role.id ? MessageType.Update : MessageType.Create;
+		const dialogRef = this.dialog.open(RoleEditDialogComponent, { data: { role } });
 		dialogRef.afterClosed().subscribe(res => {
 			if (!res) {
 				return;
 			}
 
 			this.layoutUtilsService.showActionNotification(_saveMessage, _messageType, 10000, true, false);
-			this.loadUsersList();
+			this.loadRolesList();
 		});
 		
 	}
 
 	isAllSelected(): boolean {
 		const numSelected = this.selection.selected.length;
-		const numRows = this.usersResult.length;
+		const numRows = this.rolesResult.length;
 		return numSelected === numRows;
 	}
 
 	masterToggle() {
-		if (this.selection.selected.length === this.usersResult.length) {
+		if (this.selection.selected.length === this.rolesResult.length) {
 			this.selection.clear();
 		} else {
-			this.usersResult.forEach(row => this.selection.select(row));
+			this.rolesResult.forEach(row => this.selection.select(row));
 		}
 	}
 

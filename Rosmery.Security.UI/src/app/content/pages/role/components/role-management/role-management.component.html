@@ -3,14 +3,14 @@
 	<ng-container mPortletHeadTitle>
 		<div class="m-portlet__head-title">
 			<h3 class="m-portlet__head-text">
-				<span translate="SECURITY.USERS.USERS_LIST">User Management</span>
+				<span translate="SECURITY.ROLES.ROLES_LIST">Role Management</span>
 			</h3>
 		</div>
 	</ng-container>
 
 	<ng-container mPortletHeadTools>
-		<button (click)="addUser()" mat-raised-button matTooltip="Create new User" color="primary" type="button">
-			<span translate="SECURITY.USERS.NEW_USER">New User</span>
+		<button (click)="addRole()" mat-raised-button matTooltip="Create new Role" color="primary" type="button">
+			<span translate="SECURITY.ROLES.NEW_ROLE">New Role</span>
 		</button>
 	</ng-container>
 	<ng-container mPortletBody>
@@ -20,7 +20,7 @@
 
 					<div class="col-md-2 m--margin-bottom-10-mobile">
 						<mat-form-field class="mat-form-field-fluid">
-							<input matInput placeholder="Search User" #searchInput placeholder="Search">
+							<input matInput placeholder="Search Role" #searchInput placeholder="Search">
 							<mat-hint align="start">
 								<strong>Search</strong> in all fields</mat-hint>
 						</mat-form-field>
@@ -38,15 +38,15 @@
 							</label>
 						</div>
 						<div class="m-form__control m-form__group--inline">
-							<button (click)="deleteUsers()" mat-raised-button color="accent" matTooltip="Delete selected users">
+							<button (click)="deleteRoles()" mat-raised-button color="accent" matTooltip="Delete selected roles">
 								<mat-icon>delete</mat-icon> Delete All
-							</button>&nbsp;<!-- Call 'delete-entity-dialog' from _shared folder -->
-							<button  (click)="fetchUsers()" mat-raised-button matTooltip="Fetch selected users">
+							</button>&nbsp;
+							<button  (click)="fetchRoles()" mat-raised-button matTooltip="Fetch selected roles">
 								<mat-icon>clear_all</mat-icon> Fetch Selected
-							</button>&nbsp;<!-- Call 'fetch-entity-dialog' from _shared folder -->
-							<button (click)="updateStatusForUsers()" mat-raised-button matTooltip="Update status for selected users">
+							</button>&nbsp;
+							<button (click)="updateStatusForRoles()" mat-raised-button matTooltip="Update status for selected roles">
 								<mat-icon>update</mat-icon> Update status
-							</button><!-- Call 'update-stated-dialog' from _shared folder -->
+							</button>
 						</div>
 					</div>
 				</div>
@@ -71,43 +71,22 @@
 					</mat-cell>
 				</ng-container>
 
-				<ng-container matColumnDef="userName">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>User Name</mat-header-cell>
-					<mat-cell *matCellDef="let user">{{user.userName}}</mat-cell>
+				<ng-container matColumnDef="name">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>Role Name</mat-header-cell>
+					<mat-cell *matCellDef="let role">{{role.name}}</mat-cell>
 				</ng-container>
 
-				<ng-container matColumnDef="firstName">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
-					<mat-cell *matCellDef="let user">{{user.firstName}}</mat-cell>
+				<ng-container matColumnDef="hasUsers">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>Has Users</mat-header-cell>
+					<mat-cell *matCellDef="let role">{{role.hasUsers ? 'Yes' : 'No'}}</mat-cell>
 				</ng-container>
 
-				<ng-container matColumnDef="lastName">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
-					<mat-cell *matCellDef="let user">{{user.lastName}}</mat-cell>
-				</ng-container>
-
-				<ng-container matColumnDef="email">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="email-cell">Email</mat-header-cell>
-					<mat-cell *matCellDef="let user" class="email-cell">
-						<a href="security/users#" class="m-link">{{user.email}}</a>
-					</mat-cell>
-				</ng-container>
-
-				<ng-container matColumnDef="phoneNumber">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</mat-header-cell>
-					<mat-cell *matCellDef="let user">{{user.phoneNumber}}</mat-cell>
-				</ng-container>
-
-				<ng-container matColumnDef="roles">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="role-cell">Role</mat-header-cell>
-					<mat-cell *matCellDef="let user" class="role-cell">{{user.role?.name}}</mat-cell>
-				</ng-container>
 
 				<ng-container matColumnDef="actions">
 					<mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-					<mat-cell *matCellDef="let user">
-						<button mat-icon-button color="primary" matTooltip="Edit user" (click)="editUser(user)"><mat-icon>create</mat-icon></button>&nbsp;
-						<button mat-icon-button color="warn" matTooltip="Delete user" type="button" (click)="deleteUser(user)"><mat-icon>delete</mat-icon></button>&nbsp;
+					<mat-cell *matCellDef="let role">
+						<button mat-icon-button color="primary" matTooltip="Edit role" (click)="editRole(role)"><mat-icon>create</mat-icon></button>&nbsp;
+						<button mat-icon-button color="warn" matTooltip="Delete role" type="button" (click)="deleteRole(role)" [disabled]="role.hasUsers"><mat-icon>delete</mat-icon></button>&nbsp;
 						<button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="More actions"><mat-icon>more_vert</mat-icon></button>
 						<mat-menu #menu="matMenu">
 							<button mat-menu-item><mat-icon>dialpad</mat-icon><span>Redial</span></button>

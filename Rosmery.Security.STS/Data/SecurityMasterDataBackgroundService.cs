@@ -120,7 +120,8 @@ namespace Rosmery.Security.STS.Data
         private Role GetAdminRole { get; set; } =
             new Role
             {
-                Name = SecurityRoleName
+                Name = SecurityRoleName,
+                Description = "Security Administrator Role"
             };
 
         private async Task CreateSecurityUser(SecurityUserManager<User> userManager, User user, string password) =>

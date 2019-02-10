@@ -120,6 +120,31 @@ export const locale = {
 					UPDATE_MESSAGE: 'User has been updated',
 					ADD_MESSAGE: 'User has been created'
 				}
+			},
+			ROLES: {
+				ROLES: 'Roles',
+				ROLES_LIST: 'Roles list',
+				NEW_ROLE: 'New Role',
+				DELETE_ROLE_SIMPLE: {
+					TITLE: 'Role Delete',
+					DESCRIPTION: 'Are you sure to permanently delete this role?',
+					WAIT_DESCRIPTION: 'Role is deleting...',
+					MESSAGE: 'Role has been deleted'
+				},
+				DELETE_ROLE_MULTY: {
+					TITLE: 'Roles Delete',
+					DESCRIPTION: 'Are you sure to permanently delete selected roles?',
+					WAIT_DESCRIPTION: 'Roles are deleting...',
+					MESSAGE: 'Selected roles have been deleted'
+				},
+				UPDATE_STATUS: {
+					TITLE: 'Status has been updated for selected roles',
+					MESSAGE: 'Selected role status have successfully been updated'
+				},
+				EDIT: {
+					UPDATE_MESSAGE: 'Role has been updated',
+					ADD_MESSAGE: 'Role has been created'
+				}
 			}
 		}
 	}

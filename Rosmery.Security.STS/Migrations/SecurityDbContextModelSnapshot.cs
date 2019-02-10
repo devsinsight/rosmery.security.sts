@@ -117,6 +117,9 @@ namespace Rosmery.Security.STS.Migrations
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(500);
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")

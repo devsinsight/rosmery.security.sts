@@ -18,7 +18,6 @@ namespace Rosmery.Security.API.Commands
         public string LastName { get; set; }
 
         [Required]
-        [Remote("ValidateUserName", "User", ErrorMessage = "UserName {0} already exists.")]
         public string UserName { get; set; }
 
         [Required]

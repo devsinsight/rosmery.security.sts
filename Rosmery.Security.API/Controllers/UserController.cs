@@ -59,18 +59,24 @@ namespace Rosmery.Security.API.Controllers
         [HttpPost("CreateUser")]
         public async Task CreateUser(CreateUserCommand command)
         {
+            ValidateUserNameOnCreate(command.UserName);
+
             var user = _mapper.Map<CreateUserCommand, User>(command);
             var role = await _roleManager.FindByIdAsync(command.RoleId);
 
-            
             await _userManager.CreateAsync(user);
             await _userManager.AddToRoleAsync(user, role.Name);
         }
 
-        [AllowAnonymous]
-        [HttpGet("ValidateUserName")]
+        
+        private void ValidateUserNameOnCreate(string userName) {
+            if (_userManager.UserNameExists(userName))
+                throw new Exception(string.Format("UserName {0} already exists.", userName));
+        }
+
+        [HttpGet("ValidateUserName/{userName}")]
         public bool ValidateUserName(string userName) {
-            return !_userManager.UserNameExists(userName);
+            return _userManager.UserNameExists(userName);
         }
 
         [HttpPut("UpdateUser")]
@@ -86,7 +92,6 @@ namespace Rosmery.Security.API.Controllers
             user.FirstName = command.FirstName;
             user.LastName = command.LastName;
             user.PhoneNumber = command.PhoneNumber;
-            user.UserName = command.UserName;
             user.Email = command.Email;
 
             await _userManager.UpdateAsync(user);
@@ -98,8 +103,7 @@ namespace Rosmery.Security.API.Controllers
             return x.FirstName == y.FirstName &&
                     x.LastName == y.LastName &&
                     x.PhoneNumber == y.PhoneNumber &&
-                    x.Email == y.Email &&
-                    x.UserName == y.UserName;
+                    x.Email == y.Email;
         }
 
         [HttpDelete("DeleteUser/{userId}")]
