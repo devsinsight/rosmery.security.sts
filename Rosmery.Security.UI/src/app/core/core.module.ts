@@ -21,9 +21,13 @@ import { PortletDirective } from './directives/portlet.directive';
 import { SigninCallbackComponent } from './auth/components/signin-callback.component';
 import { SignoutCallbackComponent } from './auth/components/signout-callback.component';
 import { SilentRenewCallbackComponent } from './auth/components/silent-renew-callback.component';
+import { MatSpinner, MatProgressSpinnerModule } from '@angular/material';
 
 @NgModule({
-	imports: [CommonModule],
+	imports: [
+		CommonModule,
+		MatProgressSpinnerModule
+	],
 	declarations: [
 		// directives
 		MenuAsideDirective,

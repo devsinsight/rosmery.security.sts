@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="row align-items-center collapse m-form__group-actions m--margin-top-20 m--margin-bottom-20"
-				[ngClass]="{'show' : selection.selected.length > 0}"><!-- We show 'Group Actions' div if smth are selected -->
+				[ngClass]="{'show' : selection.selected.length > 0}">
 				<div class="col-xl-12">
 					<div class="m-form__group m-form__group--inline">
 						<div class="m-form__label m-form__label-no-wrap">
@@ -38,15 +38,9 @@
 							</label>
 						</div>
 						<div class="m-form__control m-form__group--inline">
-							<button (click)="deleteRoles()" mat-raised-button color="accent" matTooltip="Delete selected roles">
-								<mat-icon>delete</mat-icon> Delete All
-							</button>&nbsp;
 							<button  (click)="fetchRoles()" mat-raised-button matTooltip="Fetch selected roles">
 								<mat-icon>clear_all</mat-icon> Fetch Selected
 							</button>&nbsp;
-							<button (click)="updateStatusForRoles()" mat-raised-button matTooltip="Update status for selected roles">
-								<mat-icon>update</mat-icon> Update status
-							</button>
 						</div>
 					</div>
 				</div>

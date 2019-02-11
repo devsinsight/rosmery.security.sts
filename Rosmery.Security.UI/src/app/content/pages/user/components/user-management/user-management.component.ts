@@ -132,33 +132,6 @@ export class UserManagementComponent implements OnInit {
 		
 	}
 
-	deleteUsers() {
-		const _title: string = this.translate.instant('SECURITY.USERS.DELETE_USER_MULTY.TITLE');
-		const _description: string = this.translate.instant('SECURITY.USERS.DELETE_USER_MULTY.DESCRIPTION');
-		const _waitDesciption: string = this.translate.instant('SECURITY.USERS.DELETE_USER_MULTY.WAIT_DESCRIPTION');
-		const _deleteMessage = this.translate.instant('SECURITY.USERS.DELETE_USER_MULTY.MESSAGE');
-		
-		const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
-		dialogRef.afterClosed().subscribe(res => {
-			if (!res) {
-				return;
-			}
-
-			const idsForDeletion: string[] = [];
-			for (let i = 0; i < this.selection.selected.length; i++) {
-				idsForDeletion.push(this.selection.selected[i].userId);
-			}
-			this.userService
-				.deleteUsers(idsForDeletion)
-				.subscribe(() => {
-					this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
-					this.loadUsersList();
-					this.selection.clear();
-				});
-		});
-		
-	}
-
 	fetchUsers() {
 		const messages = [];
 		this.selection.selected.forEach(elem => {
@@ -169,37 +142,6 @@ export class UserManagementComponent implements OnInit {
 			});
 		});
 		this.layoutUtilsService.fetchElements(messages);
-	}
-
-	updateStatusForUsers() {
-		const _title = this.translate.instant('SECURITY.USERS.UPDATE_STATUS.TITLE');
-		const _updateMessage = this.translate.instant('SECURITY.USERS.UPDATE_STATUS.MESSAGE');
-		const _statuses = [{ value: 0, text: 'Suspended' }, { value: 1, text: 'Active' }, { value: 2, text: 'Pending' }];
-		const _messages = [];
-
-		this.selection.selected.forEach(elem => {
-			_messages.push({
-				text: `${elem.lastName}, ${elem.firstName}`,
-				id: elem.userId.toString(),
-			});
-		});
-		
-		const dialogRef = this.layoutUtilsService.updateStatusForUsers(_title, _statuses, _messages);
-		dialogRef.afterClosed().subscribe(res => {
-			if (!res) {
-				this.selection.clear();
-				return;
-			}
-
-			this.userService
-				.updateStatusForUser(this.selection.selected, res)
-				.subscribe(() => {
-					this.layoutUtilsService.showActionNotification(_updateMessage, MessageType.Update);
-					this.loadUsersList();
-					this.selection.clear();
-				});
-		});
-		
 	}
 
 	addUser() {

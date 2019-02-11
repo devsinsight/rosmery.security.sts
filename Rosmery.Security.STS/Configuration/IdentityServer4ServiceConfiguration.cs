@@ -1,5 +1,4 @@
-﻿using IdentityServer4.Services;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Rosmery.Security.Identity.Models;
 using System.Security.Cryptography.X509Certificates;
@@ -39,6 +38,9 @@ namespace Rosmery.Security.STS.Configuration
                 //.AddDeveloperSigningCredential()   // development environment
                 .AddSigningCredential(certification) // production environment && dev certs
                 .AddValidationKey(certification)
+                .AddAuthorizeInteractionResponseGenerator<CustomAuthorizeInteractionResponseGenerator>()
+                .AddCustomAuthorizeRequestValidator<CustomAuthorizeRequestValidator>()
+                .AddCustomTokenRequestValidator<CustomTokenRequestValidator>()
                 .AddAspNetIdentity<User>();
         }
     }

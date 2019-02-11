@@ -35,12 +35,6 @@ export class MenuConfig implements ConfigModel {
 						root: true,
 						icon: 'flaticon-map',
 						page: '/role'
-					},
-					{
-						title: 'Builder',
-						root: true,
-						icon: 'flaticon-settings',
-						page: '/builder'
 					}
 				]
 			}

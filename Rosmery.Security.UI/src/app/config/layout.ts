@@ -81,7 +81,7 @@ export class LayoutConfig implements ConfigModel {
 		menu: {
 			header: {
 				// Display or hide header menu
-				display: true,
+				display: false,
 
 				//  header menu desktop mode
 				desktop: {

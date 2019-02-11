@@ -148,14 +148,15 @@ namespace Rosmery.Security.STS.Data
             {
                 new Client
                 {
-                    ClientId = "rosmery-security",
-                    ClientName = "Rosmery Security",
+                    ClientId = "rosmery-security-api",
+                    ClientName = "Rosmery Security API",
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    RequireConsent = false,
                     IdentityTokenLifetime=1200,
                     AccessTokenLifetime=1200,
                     AccessTokenType = AccessTokenType.Reference,
                     AllowAccessTokensViaBrowser = true,
+                    RequireConsent = true,
+                    AllowRememberConsent = true,
                     RedirectUris =
                     {
                         "http://localhost:4200/signin-callback",
@@ -171,13 +172,13 @@ namespace Rosmery.Security.STS.Data
 
                     ClientSecrets =
                     {
-                        new Secret("rosmery-security-secret".Sha256())
+                        new Secret("rosmery-security-api-secret".Sha256())
                     },
                     AllowedScopes =
                     {
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
-                        "rosmery-security"
+                        "rosmery-security-api"
                     },
                     AllowedCorsOrigins =
                     {
@@ -193,9 +194,9 @@ namespace Rosmery.Security.STS.Data
         private IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
             {
-                new ApiResource("rosmery-security", "Rosmery Security", new[] { "name", "role" } )
+                new ApiResource("rosmery-security-api", "Rosmery Security API", new[] { "name", "role" } )
                 {
-                    ApiSecrets = { new Secret("rosmery-security-secret".Sha256()) }
+                    ApiSecrets = { new Secret("rosmery-security-api-secret".Sha256()) }
                 }
             };
 

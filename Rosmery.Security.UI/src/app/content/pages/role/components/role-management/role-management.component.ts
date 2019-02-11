@@ -121,33 +121,6 @@ export class RoleManagementComponent implements OnInit {
 		
 	}
 
-	deleteRoles() {
-		const _title: string = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_MULTY.TITLE');
-		const _description: string = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_MULTY.DESCRIPTION');
-		const _waitDesciption: string = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_MULTY.WAIT_DESCRIPTION');
-		const _deleteMessage = this.translate.instant('SECURITY.ROLES.DELETE_ROLE_MULTY.MESSAGE');
-		
-		const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
-		dialogRef.afterClosed().subscribe(res => {
-			if (!res) {
-				return;
-			}
-
-			const idsForDeletion: string[] = [];
-			for (let i = 0; i < this.selection.selected.length; i++) {
-				idsForDeletion.push(this.selection.selected[i].id);
-			}
-			this.roleService
-				.deleteRoles(idsForDeletion)
-				.subscribe(() => {
-					this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
-					this.loadRolesList();
-					this.selection.clear();
-				});
-		});
-		
-	}
-
 	fetchRoles() {
 		const messages = [];
 		this.selection.selected.forEach(elem => {
@@ -158,37 +131,6 @@ export class RoleManagementComponent implements OnInit {
 			});
 		});
 		this.layoutUtilsService.fetchElements(messages);
-	}
-
-	updateStatusForRoles() {
-		const _title = this.translate.instant('SECURITY.ROLES.UPDATE_STATUS.TITLE');
-		const _updateMessage = this.translate.instant('SECURITY.ROLES.UPDATE_STATUS.MESSAGE');
-		const _statuses = [{ value: 0, text: 'Suspended' }, { value: 1, text: 'Active' }, { value: 2, text: 'Pending' }];
-		const _messages = [];
-
-		this.selection.selected.forEach(elem => {
-			_messages.push({
-				text: `${elem.name}`,
-				id: elem.id.toString(),
-			});
-		});
-		
-		const dialogRef = this.layoutUtilsService.updateStatusForRoles(_title, _statuses, _messages);
-		dialogRef.afterClosed().subscribe(res => {
-			if (!res) {
-				this.selection.clear();
-				return;
-			}
-
-			this.roleService
-				.updateStatusForRole(this.selection.selected, res)
-				.subscribe(() => {
-					this.layoutUtilsService.showActionNotification(_updateMessage, MessageType.Update);
-					this.loadRolesList();
-					this.selection.clear();
-				});
-		});
-		
 	}
 
 	addRole() {

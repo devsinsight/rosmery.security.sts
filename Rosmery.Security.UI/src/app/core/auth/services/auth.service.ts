@@ -76,12 +76,12 @@ export class AuthService {
   getClientSettings(): UserManagerSettings {
     return {
         authority: environment.baseSeguritySTSUrl,
-        client_id: 'rosmery-security',
+        client_id: 'rosmery-security-api',
         redirect_uri: environment.baseUrl + '/signin-callback',
         post_logout_redirect_uri: environment.baseUrl + '/signout-callback',
         silent_redirect_uri: environment.baseUrl +  '/silent-renew-callback',
         response_type: 'id_token token',
-        scope: 'openid profile rosmery-security',
+        scope: 'openid profile rosmery-security-api',
         filterProtocolClaims: true, 
         loadUserInfo: true,
         automaticSilentRenew: true,

@@ -8,7 +8,6 @@ import { NavigationEnd, Router } from '@angular/router';
 import { PageConfigService } from './core/services/page-config.service';
 import { filter } from 'rxjs/operators';
 import { SplashScreenService } from './core/services/splash-screen.service';
-//import { AclService } from './core/services/acl.service';
 // language list
 import { locale as enLang } from './config/i18n/en';
 import { locale as chLang } from './config/i18n/ch';
@@ -16,9 +15,6 @@ import { locale as esLang } from './config/i18n/es';
 import { locale as jpLang } from './config/i18n/jp';
 import { locale as deLang } from './config/i18n/de';
 import { locale as frLang } from './config/i18n/fr';
-
-// LIST KNOWN ISSUES
-// [Violation] Added non-passive event listener; https://github.com/angular/angular/issues/8866
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -44,11 +40,8 @@ export class AppComponent implements AfterViewInit, OnInit {
 		private router: Router,
 		private pageConfigService: PageConfigService,
 		private splashScreenService: SplashScreenService,
-		//private aclService: AclService
 	) {
-		// subscribe to class update event
 		this.classInitService.onClassesUpdated$.subscribe(classes => {
-			// get body class array, join as string classes and pass to host binding class
 			setTimeout(() => this.classes = classes.body.join(' '));
 		});
 
@@ -62,8 +55,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 					this.style = this.sanitizer.bypassSecurityTrustStyle('background-image: url(' + objectPath.get(model.config, 'self.background') + ')');
 				}
 			}
-
-			//	splash screen image
+			
 			this.splashScreenImage = objectPath.get(model.config, 'loader.image');
 		});
 
