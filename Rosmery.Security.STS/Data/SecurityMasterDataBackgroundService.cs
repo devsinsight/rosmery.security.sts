@@ -114,7 +114,8 @@ namespace Rosmery.Security.STS.Data
                 UserName = "shoutmetal",
                 Email = "olivares.rojas.jose@gmail.com",
                 FirstName = "José Luis",
-                LastName = "Olivares Rojas"
+                LastName = "Olivares Rojas",
+                EmailConfirmed = true
             };
 
         private Role GetAdminRole { get; set; } =

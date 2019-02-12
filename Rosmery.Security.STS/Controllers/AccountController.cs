@@ -5,12 +5,15 @@ using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Rosmery.Security.Identity.Managers;
 using Rosmery.Security.Identity.Models;
 using Rosmery.Security.STS.CustomAttributes;
 using Rosmery.Security.STS.Models;
+using Rosmery.Security.STS.Models.Account;
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -28,6 +31,7 @@ namespace Rosmery.Security.STS.Controllers
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
+        private readonly IEmailSender _emailSender;
 
         public AccountController(
             SecurityUserManager<User> userManager,
@@ -35,7 +39,8 @@ namespace Rosmery.Security.STS.Controllers
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
-            IEventService events)
+            IEventService events,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,6 +48,7 @@ namespace Rosmery.Security.STS.Controllers
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _emailSender = emailSender;
         }
 
         [HttpGet]
@@ -192,6 +198,102 @@ namespace Rosmery.Security.STS.Controllers
             {
                 return Redirect(vm.PostLogoutRedirectUri);
             }
+        }
+
+        // GET: /Account/Register
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new User { UserName = model.UserName, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", 
+                        new { userId = user.Id, code, returnUrl }, 
+                        protocol: HttpContext.Request.Scheme);
+
+                    await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                        "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+
+                    return LocalRedirect(returnUrl);
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code, string returnUrl)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return View("Error");
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            ViewData["ReturnUrl"] = returnUrl;
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
+
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callbackUrl = Url.Action("ResetPassword", "Account", 
+                    new { userId = user.Id, code }, 
+                    protocol: HttpContext.Request.Scheme);
+                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+                   "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+                return View("ForgotPasswordConfirmation");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         private async Task<IActionResult> ProcessWindowsLoginAsync(string returnUrl)

@@ -33,6 +33,8 @@ services:
       - IdentityServer4_Certificate_Token_Path=${ASPNETCORE_IDENTITY_SERVER_CERTIFICATE_PATH}
       - IdentityServer4_Certificate_Token_Password=${ASPNETCORE_IDENTITY_SERVER_CERTIFICATE_PASSWORD}
       - SecurityAdministratorPassword=${ROSMERY_SECURITY_ADMINISTRATOR_PASSWORD}
+      - EmailSendgridUser=${EMAIL_SENDGRI_USER}
+      - EmailSendgridKey=${EMAIL_SENDGRID_KEY}
     ports:
       - "5000:80"
       - "44356:443"

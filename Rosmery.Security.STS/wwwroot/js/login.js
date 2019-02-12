@@ -2,14 +2,6 @@ var SnippetLogin = function() {
 
     var login = $('#m_login');
 
-    var displaySignUpForm = function () {
-        login.removeClass('m-login--forget-password');
-        login.removeClass('m-login--signin');
-
-        login.addClass('m-login--signup');
-        mUtil.animateClass(login.find('.m-login__signup')[0], 'flipInX animated');
-    };
-
     var displaySignInForm = function () {
         login.removeClass('m-login--forget-password');
         login.removeClass('m-login--signup');
@@ -36,16 +28,6 @@ var SnippetLogin = function() {
         });
 
         $('#m_login_forget_password_cancel').click(function (e) {
-            e.preventDefault();
-            displaySignInForm();
-        });
-
-        $('#m_login_signup').click(function (e) {
-            e.preventDefault();
-            displaySignUpForm();
-        });
-
-        $('#m_login_signup_cancel').click(function (e) {
             e.preventDefault();
             displaySignInForm();
         });

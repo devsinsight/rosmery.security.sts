@@ -74,7 +74,7 @@ export class UserEditDialogComponent implements OnInit {
 						[ Validators.required,
 						  Validators.minLength(5),
 						  Validators.maxLength(100)]],
-			roleId: [this.user.role.id, Validators.required ]
+			roleId: [this.user.role ? this.user.role.id : null, Validators.required ]
 		});
 	}
 

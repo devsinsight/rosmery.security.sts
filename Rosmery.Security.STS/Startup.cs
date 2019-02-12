@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Rosmery.Security.Identity.Configuration;
 using Rosmery.Security.STS.Configuration;
 using Rosmery.Security.STS.Data;
+using Rosmery.Security.STS.Services;
 using System.Reflection;
 
 namespace Rosmery.Security.STS
@@ -31,6 +33,9 @@ namespace Rosmery.Security.STS
             services.AddIdentityConfiguration(assemblyName, connectionString);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddIdentityServerServiceConfiguration(assemblyName, connectionString, "Security", DevelopmentCertification.GetFromContainer());
 

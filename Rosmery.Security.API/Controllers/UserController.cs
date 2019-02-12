@@ -51,7 +51,7 @@ namespace Rosmery.Security.API.Controllers
                                         .Select(r => _roleManager.FindByNameAsync(r).Result)
                                         .FirstOrDefault()
                         })
-                        .Where(u => u.Role.Name != SECURITY_ADMINISTRATOR)
+                        .Where(u => u.Role?.Name != SECURITY_ADMINISTRATOR)
                         .ToList();
 
         }

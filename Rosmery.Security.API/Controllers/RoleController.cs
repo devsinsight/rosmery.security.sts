@@ -12,6 +12,7 @@ namespace Rosmery.Security.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "SECURITY_ADMINISTRATOR")]
     public class RoleController : ControllerBase
     {
         private readonly SecurityRoleManager<Role> _roleManager;

@@ -1,5 +1,4 @@
-﻿
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*
 $table-inverse-bg:              $gray-900 !default;
 $table-inverse-accent-bg:       rgba($white, .05) !default;
@@ -47769,10 +47768,6 @@ select.m-select2 {
         display: none;
     }
 
-    .m-login.m-login--1.m-login--signup .m-login__signup {
-        display: block;
-    }
-
     .m-login.m-login--1.m-login--signup .m-login__signin {
         display: none;
     }
@@ -47782,10 +47777,6 @@ select.m-select2 {
     }
 
     .m-login.m-login--1.m-login--signup .m-login__account {
-        display: none;
-    }
-
-    .m-login.m-login--1.m-login--forget-password .m-login__signup {
         display: none;
     }
 
@@ -47967,20 +47958,12 @@ select.m-select2 {
                     font-weight: 400;
                 }
 
-    .m-login.m-login--2.m-login--signin .m-login__signup {
-        display: none;
-    }
-
     .m-login.m-login--2.m-login--signin .m-login__signin {
         display: block;
     }
 
     .m-login.m-login--2.m-login--signin .m-login__forget-password {
         display: none;
-    }
-
-    .m-login.m-login--2.m-login--signup .m-login__signup {
-        display: block;
     }
 
     .m-login.m-login--2.m-login--signup .m-login__signin {
@@ -47992,10 +47975,6 @@ select.m-select2 {
     }
 
     .m-login.m-login--2.m-login--signup .m-login__account {
-        display: none;
-    }
-
-    .m-login.m-login--2.m-login--forget-password .m-login__signup {
         display: none;
     }
 
@@ -48545,20 +48524,12 @@ select.m-select2 {
                     font-weight: 400;
                 }
 
-    .m-login.m-login--5.m-login--signin .m-login__signup {
-        display: none;
-    }
-
     .m-login.m-login--5.m-login--signin .m-login__signin {
         display: block;
     }
 
     .m-login.m-login--5.m-login--signin .m-login__forget-password {
         display: none;
-    }
-
-    .m-login.m-login--5.m-login--signup .m-login__signup {
-        display: block;
     }
 
     .m-login.m-login--5.m-login--signup .m-login__signin {
@@ -48570,10 +48541,6 @@ select.m-select2 {
     }
 
     .m-login.m-login--5.m-login--signup .m-login__account {
-        display: none;
-    }
-
-    .m-login.m-login--5.m-login--forget-password .m-login__signup {
         display: none;
     }
 

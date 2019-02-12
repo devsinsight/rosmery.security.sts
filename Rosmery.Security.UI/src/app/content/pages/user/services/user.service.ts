@@ -66,6 +66,6 @@ export class UserService {
 	}
 
 	validateUserName(userName: string) {
-		return this.http.get(`${API_USERS_URL}/api/user/ValidateUserName/${userName || '*'}`)
+		return this.http.get(`${API_USERS_URL}/api/user/ValidateUserName/${userName}`)
 	}
 }

@@ -27,6 +27,7 @@ namespace Rosmery.Security.Identity.Configuration
                             options.Password.RequireLowercase = false;
                             options.Password.RequireNonAlphanumeric = false;
                             options.Password.RequireUppercase = false;
+                            options.SignIn.RequireConfirmedEmail = true;
                         })
                 .AddEntityFrameworkStores<SecurityDbContext>()
                 .AddDefaultTokenProviders()
