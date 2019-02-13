@@ -41,7 +41,7 @@
                                 </label>
                             </div>
                             <div class="col m--align-right m-login__form-right">
-                                <a href="javascript:;" id="m_login_forget_password" class="m-link">Forget Password ?</a>
+                                <a asp-controller="Account" asp-action="ForgotPassword" asp-route-returnUrl="@Model.ReturnUrl" class="m-link">Forget Password ?</a>
                             </div>
                         </div>
                         }
@@ -89,22 +89,6 @@
                         There are no login schemes configured for this client.
                     </div>
                     }
-                </div>
-
-                <div class="m-login__forget-password">
-                    <div class="m-login__head">
-                        <h3 class="m-login__title">Forgotten Password ?</h3>
-                        <div class="m-login__desc">Enter your email to reset your password:</div>
-                    </div>
-                    <form class="m-login__form m-form" action="">
-                        <div class="form-group m-form__group">
-                            <input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
-                        </div>
-                        <div class="m-login__form-action">
-                            <button id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary">Request</button>&nbsp;&nbsp;
-                            <button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom  m-login__btn">Cancel</button>
-                        </div>
-                    </form>
                 </div>
 
                 <div class="m-login__account">

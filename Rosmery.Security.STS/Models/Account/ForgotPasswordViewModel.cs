@@ -11,5 +11,7 @@ namespace Rosmery.Security.STS.Models.Account
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 }

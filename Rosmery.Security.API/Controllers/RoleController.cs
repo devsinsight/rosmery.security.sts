@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Rosmery.Security.API.Commands;
 using Rosmery.Security.API.Models;
 using Rosmery.Security.Identity.Managers;
@@ -17,6 +18,7 @@ namespace Rosmery.Security.API.Controllers
     {
         private readonly SecurityRoleManager<Role> _roleManager;
         private readonly SecurityUserManager<User> _userManager;
+        private const string SECURITY_ADMINISTRATOR = "SECURITY_ADMINISTRATOR";
 
         public RoleController(
             SecurityRoleManager<Role> roleManager,
@@ -24,17 +26,22 @@ namespace Rosmery.Security.API.Controllers
         {
             _roleManager = roleManager;
             _userManager = userManager;
+
+            
+            
         }
 
         [HttpGet("GetRoles")]
         public IEnumerable<RoleModel> GetAllRoles() {
-            return _roleManager.GetAllRoles().Select(r => new RoleModel
-            {
-                Id = r.Id,
-                Name = r.Name,
-                Description = r.Description,
-                HasUsers = _userManager.GetUsersInRoleAsync(r.Name).Result?.Any()
-            });
+            return _roleManager.GetAllRoles()
+                .Where( r => r.Name != SECURITY_ADMINISTRATOR )
+                .Select(r => new RoleModel
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    Description = r.Description,
+                    HasUsers = _userManager.GetUsersInRoleAsync(r.Name).Result?.Any()
+                });
         }
 
         [HttpPost("CreateRole")]

@@ -37,6 +37,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security Token Service", "Security Token Service", "{040B18F1-F2B5-4FBA-A3BA-CEB56F70A651}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security Management", "Security Management", "{BC3FF201-B3D0-42B9-943C-0D60B44D25BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{863FC784-464F-4A5F-97A4-0002FFAC9694}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +71,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{53286447-D72B-45DC-BE12-8348996AB1E4} = {BC3FF201-B3D0-42B9-943C-0D60B44D25BD}
+		{955C9652-8773-4FFF-8DED-751C34C10E57} = {040B18F1-F2B5-4FBA-A3BA-CEB56F70A651}
+		{10D68BF3-A6D1-4251-93B8-10D9FC9D42B5} = {BC3FF201-B3D0-42B9-943C-0D60B44D25BD}
+		{2E91BF0D-255F-40FE-A27F-D2A7E455BE4C} = {863FC784-464F-4A5F-97A4-0002FFAC9694}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8299C0E6-0A1B-448F-96D5-4833443CB439}

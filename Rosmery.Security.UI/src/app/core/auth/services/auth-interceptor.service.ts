@@ -34,7 +34,7 @@ export class AuthInterceptorService implements HttpInterceptor  {
 
   errorHandler(error: HttpErrorResponse) {
     let data = {
-                    reason: error && error.error.reason ? error.error.reason : '',
+                    reason: error ? error.error ? error.error.reason : error.message : error.message,
                     status: error.status
                 };
 

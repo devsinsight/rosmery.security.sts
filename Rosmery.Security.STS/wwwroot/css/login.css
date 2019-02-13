@@ -9,3 +9,6 @@
     color: #ff0000;
     text-shadow: -0.5px 0.5px #000;
 }
+.show-validation {
+    display:none;
+}
