@@ -1,5 +1,9 @@
 ﻿.login-background-image {
-    background-image: url(/metronic/img//bg/bg-1.jpg);
+    background-image: url(/metronic/img/bg/bg-1.jpg);
+}
+
+.error-background-image {
+    background-image: url(/metronic/img//error/bg6.jpg);
 }
 
 .form-control-feedback {

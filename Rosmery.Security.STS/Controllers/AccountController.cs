@@ -200,18 +200,27 @@ namespace Rosmery.Security.STS.Controllers
             }
         }
 
-        // GET: /Account/Register
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        private async Task<bool> IsValidRequest(string returnUrl)
         {
+            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            return !(_interaction.IsValidReturnUrl(returnUrl)
+                && context != null
+                && context?.RedirectUri != null
+                && context?.ClientId != null);
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Register(string returnUrl = null)
+        {
+            if (await IsValidRequest(returnUrl))
+                return View("Error");
+
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
@@ -231,7 +240,7 @@ namespace Rosmery.Security.STS.Controllers
                     await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                         "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
 
-                    return LocalRedirect(returnUrl);
+                    return View("RegisterConfirmation");
                 }
 
                 foreach (var error in result.Errors)
@@ -244,10 +253,19 @@ namespace Rosmery.Security.STS.Controllers
             return View(model);
         }
 
+
         [HttpGet]
-        [AllowAnonymous]
+        public IActionResult RegisterConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string code, string returnUrl)
         {
+            if (!_interaction.IsValidReturnUrl(returnUrl))
+                return View("Error");
+
             if (userId == null || code == null)
             {
                 return View("Error");
@@ -263,15 +281,16 @@ namespace Rosmery.Security.STS.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ForgotPassword(string returnUrl)
+        public async Task<IActionResult> ForgotPassword(string returnUrl)
         {
+            if (await IsValidRequest(returnUrl))
+                return View("Error");
+
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
@@ -298,15 +317,16 @@ namespace Rosmery.Security.STS.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPassword(string returnUrl, string code = null)
+        public async Task<IActionResult> ResetPassword(string returnUrl, string code = null)
         {
+            if (await IsValidRequest(returnUrl))
+                return View("Error");
+
             ViewData["ReturnUrl"] = returnUrl;
             return code == null ? View("Error") : View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -331,9 +351,11 @@ namespace Rosmery.Security.STS.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPasswordConfirmation(string returnUrl)
+        public async Task<IActionResult> ResetPasswordConfirmation(string returnUrl)
         {
+            if (await IsValidRequest(returnUrl))
+                return View("Error");
+
             ViewData["ReturUrl"] = returnUrl;
             return View();
         }
@@ -420,7 +442,7 @@ namespace Rosmery.Security.STS.Controllers
                     AuthenticationScheme = x.Name
                 }).ToList();
 
-            var allowLocal = true;
+            var allowLocal = false;
             if (context?.ClientId != null)
             {
                 var client = await _clientStore.FindEnabledClientByIdAsync(context.ClientId);

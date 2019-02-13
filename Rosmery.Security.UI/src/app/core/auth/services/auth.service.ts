@@ -56,6 +56,7 @@ export class AuthService {
   endSigninMainWindow(): Promise<void> {
       return this.manager.signinRedirectCallback().then(user => {
           this.user = user;
+          console.log(this.user)
       });
   }
 
@@ -65,7 +66,6 @@ export class AuthService {
 
   endSignoutMainWindow(): Promise<void> {
     return this.manager.signoutRedirectCallback().then(function (resp) {
-      console.log('signed out', resp);
     });
   }
 

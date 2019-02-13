@@ -5,6 +5,8 @@ import { LayoutConfigService } from '../../services/layout-config.service';
 import { ClassInitService } from '../../services/class-init.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as objectPath from 'object-path';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-signin-callback',
@@ -26,7 +28,8 @@ export class SigninCallbackComponent implements OnInit {
     private layoutConfigService: LayoutConfigService,
 		private classInitService: ClassInitService,
 		private sanitizer: DomSanitizer,
-		private router: Router) { 
+    private router: Router,
+    private http: HttpClient) { 
 
       this.layoutConfigService.onLayoutConfigUpdated$.subscribe(model => {
         this.classInitService.setConfig(model);
@@ -48,7 +51,8 @@ export class SigninCallbackComponent implements OnInit {
   ngOnInit() {
     this.authService.endSigninMainWindow()
     .then( () => {
-      this.router.navigate(['/']);
+        this.router.navigate(['/']);
+
     });
   }
 

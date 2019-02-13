@@ -21,31 +21,38 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				loadChildren: './components/dashboard/dashboard.module#DashboardModule'
+				loadChildren: './components/dashboard/dashboard.module#DashboardModule',
+				canActivate: [AuthGuardService]
 			},
 			{
 				path: 'builder',
-				loadChildren: './builder/builder.module#BuilderModule'
+				loadChildren: './builder/builder.module#BuilderModule',
+				canActivate: [AuthGuardService]
 			},
 			{
 				path: 'header/actions',
-				component: ActionComponent
+				component: ActionComponent,
+				canActivate: [AuthGuardService]
 			},
 			{
 				path: 'profile',
-				component: ProfileComponent
+				component: ProfileComponent,
+				canActivate: [AuthGuardService]
 			},
 			{
 				path: 'inner',
-				component: InnerComponent
+				component: InnerComponent,
+				canActivate: [AuthGuardService]
 			},
 			{
 				path: 'user', 
-				loadChildren: './user/user.module#UserModule'
+				loadChildren: './user/user.module#UserModule',
+				canActivate: [AuthGuardService]
 			},
 			{
 				path: 'role', 
-				loadChildren: './role/role.module#RoleModule'
+				loadChildren: './role/role.module#RoleModule',
+				canActivate: [AuthGuardService]
 			}
 		]
 	},

@@ -25,12 +25,5 @@ export class DashboardComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	test() {
-		this.http.get(environment.baseSeurityApiUrl + '/identity')
-		  .subscribe( response => {
-			alert(JSON.stringify(response));
-		  }, error => {
-			alert(error);
-		  });
-	  }
+
 }

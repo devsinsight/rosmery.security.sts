@@ -29,6 +29,7 @@ export class AuthInterceptorService implements HttpInterceptor  {
 
   eventResponse(event: HttpEvent<any>): HttpEvent<any>
   {
+    //console.log('event -> ', event)
     return event;
   }
 
@@ -38,7 +39,7 @@ export class AuthInterceptorService implements HttpInterceptor  {
                     status: error.status
                 };
 
-    console.error("CUSTOM ERROR ", data);
+    //console.error("CUSTOM ERROR ", data);
 
     //if(data.status === 0) this.router.navigateByUrl('error/6');
 

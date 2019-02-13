@@ -22,6 +22,9 @@ import { SigninCallbackComponent } from './auth/components/signin-callback.compo
 import { SignoutCallbackComponent } from './auth/components/signout-callback.component';
 import { SilentRenewCallbackComponent } from './auth/components/silent-renew-callback.component';
 import { MatSpinner, MatProgressSpinnerModule } from '@angular/material';
+import { AuthGuardService } from './auth/services/auth-guard.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from './auth/services/auth-interceptor.service';
 
 @NgModule({
 	imports: [
@@ -74,6 +77,12 @@ import { MatSpinner, MatProgressSpinnerModule } from '@angular/material';
 		ConsoleLogPipe,
 		SafePipe
 	],
-	providers: []
+	providers: [
+		{
+		  provide: HTTP_INTERCEPTORS,
+		  useClass: AuthInterceptorService,
+		  multi: true
+		}
+	]
 })
 export class CoreModule {}

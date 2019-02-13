@@ -15,7 +15,6 @@ import { CoreModule } from './core/core.module';
 import { LayoutConfigService } from './core/services/layout-config.service';
 import { MenuConfigService } from './core/services/menu-config.service';
 import { PageConfigService } from './core/services/page-config.service';
-import { UserService } from './core/services/user.service';
 import { UtilsService } from './core/services/utils.service';
 import { ClassInitService } from './core/services/class-init.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -66,7 +65,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		LayoutRefService,
 		MenuConfigService,
 		PageConfigService,
-		UserService,
 		UtilsService,
 		ClassInitService,
 		MessengerService,
