@@ -36,9 +36,9 @@ export class AuthService {
 
   }
 
-  isLoggedIn(): Observable<boolean> {
+  getUser(): Observable<User> {
       return from(this.manager.getUser())
-            .pipe(map<User, boolean>((user) => !!user));
+            .pipe(map<User, User>((user) => user));
     }
 
   getClaims(): any {
@@ -56,7 +56,7 @@ export class AuthService {
   endSigninMainWindow(): Promise<void> {
       return this.manager.signinRedirectCallback().then(user => {
           this.user = user;
-          console.log(this.user)
+          console.log(this.user);
       });
   }
 
@@ -81,7 +81,7 @@ export class AuthService {
         post_logout_redirect_uri: environment.baseUrl + '/signout-callback',
         silent_redirect_uri: environment.baseUrl +  '/silent-renew-callback',
         response_type: 'id_token token',
-        scope: 'openid profile rosmery-security-api',
+        scope: 'openid profile rosmery-security-api role',
         filterProtocolClaims: true, 
         loadUserInfo: true,
         automaticSilentRenew: true,

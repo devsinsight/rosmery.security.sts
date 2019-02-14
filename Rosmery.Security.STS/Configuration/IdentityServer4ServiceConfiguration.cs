@@ -41,6 +41,7 @@ namespace Rosmery.Security.STS.Configuration
                 .AddAuthorizeInteractionResponseGenerator<CustomAuthorizeInteractionResponseGenerator>()
                 .AddCustomAuthorizeRequestValidator<CustomAuthorizeRequestValidator>()
                 .AddCustomTokenRequestValidator<CustomTokenRequestValidator>()
+                .AddProfileService<CustomProfileService>()
                 .AddAspNetIdentity<User>();
         }
     }

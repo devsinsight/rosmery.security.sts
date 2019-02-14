@@ -158,6 +158,7 @@ namespace Rosmery.Security.STS.Data
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = true,
                     AllowRememberConsent = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
                     RedirectUris =
                     {
                         "http://localhost:4200/signin-callback",
@@ -187,7 +188,12 @@ namespace Rosmery.Security.STS.Data
                         "http://localhost:5001", //no ssl dev
                         "https://localhost:44390", //ssl dev
                         "http://localhost:3000" //docker dev
+                    },
+                    Properties = new Dictionary<string, string>()
+                    {
+                        { "IsManagementApp", "Y" }
                     }
+                    
 
                 }
             };

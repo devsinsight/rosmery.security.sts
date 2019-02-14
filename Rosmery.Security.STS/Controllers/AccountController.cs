@@ -70,6 +70,8 @@ namespace Rosmery.Security.STS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
+
+
             if (button != "login")
             {
                 // the user clicked the "cancel" button
@@ -93,6 +95,21 @@ namespace Rosmery.Security.STS.Controllers
 
             if (ModelState.IsValid)
             {
+                //Validate if is a management app
+                var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
+                if (context != null)
+                {
+                    var client = await _clientStore.FindClientByIdAsync(context.ClientId);
+                    if (!string.IsNullOrEmpty(client.Properties["SegurityAdministratorId"]))
+                    {
+                        var user = await _userManager.FindByIdAsync(client.Properties["SegurityAdministratorId"]);
+
+                        if (user.UserName != model.Username) {
+                            return View("Unauthorized");
+                        }
+                    }
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberLogin, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
@@ -335,7 +352,7 @@ namespace Rosmery.Security.STS.Controllers
             {
                 return View(model);
             }
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByNameAsync(model.UserName);
             if (user == null)
             {
                 // Don't reveal that the user does not exist

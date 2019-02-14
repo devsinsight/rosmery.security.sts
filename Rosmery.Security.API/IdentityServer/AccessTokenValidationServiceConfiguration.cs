@@ -1,7 +1,14 @@
-﻿using IdentityServer4.AccessTokenValidation;
+﻿using IdentityModel;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Rosmery.Security.API.IdentityServer
 {
