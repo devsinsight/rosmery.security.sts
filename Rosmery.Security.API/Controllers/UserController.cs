@@ -62,10 +62,13 @@ namespace Rosmery.Security.API.Controllers
             ValidateUserNameOnCreate(command.UserName);
 
             var user = _mapper.Map<CreateUserCommand, User>(command);
-            var role = await _roleManager.FindByIdAsync(command.RoleId);
-
+            user.EmailConfirmed = true;
             await _userManager.CreateAsync(user);
-            await _userManager.AddToRoleAsync(user, role.Name);
+
+            if (command.RoleId != null) { 
+                var role = await _roleManager.FindByIdAsync(command.RoleId);
+                await _userManager.AddToRoleAsync(user, role.Name);
+            }
         }
 
         
@@ -84,7 +87,6 @@ namespace Rosmery.Security.API.Controllers
         {
             var user = await _userManager.FindByIdAsync(command.UserId);
             var role = await _roleManager.FindByIdAsync(command.RoleId);
-
             var oldRoleNames = await _userManager.GetRolesAsync(user);
 
             if (IsEqualUser(command, user) && role.Name == oldRoleNames[0]) return;
@@ -95,8 +97,11 @@ namespace Rosmery.Security.API.Controllers
             user.Email = command.Email;
 
             await _userManager.UpdateAsync(user);
+            
             await _userManager.RemoveFromRoleAsync(user, oldRoleNames[0]);
-            await _userManager.AddToRoleAsync(user, role.Name);
+            if (command.RoleId != null)
+                await _userManager.AddToRoleAsync(user, role.Name);
+
         }
 
         private bool IsEqualUser(UpdateUserCommand x, User y) {

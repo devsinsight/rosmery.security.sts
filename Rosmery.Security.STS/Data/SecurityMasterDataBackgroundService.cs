@@ -26,6 +26,7 @@ namespace Rosmery.Security.STS.Data
         private const string SecurityRoleName = "SECURITY_ADMINISTRATOR";
         private readonly IConfiguration _configuration;
         private readonly IServiceScopeFactory _servicesScopedFactory;
+        private User _user { get; set; }
 
         public SecurityMasterDataBackgroundService(
             IConfiguration configuration,
@@ -38,8 +39,9 @@ namespace Rosmery.Security.STS.Data
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await CreateSecurityDatabase();
-            await CreateSecurityMasterData();
             await CreateSecurityAdministrator();
+            await CreateSecurityMasterData();
+            
         }
 
         private async Task CreateSecurityAdministrator() {
@@ -54,6 +56,8 @@ namespace Rosmery.Security.STS.Data
                     await CreateSecurityUser(userManager, user, _configuration["SecurityAdministratorPassword"]);
                     await CreateSecurityRole(roleManager);
                     await AsignSecurityRole(userManager, user);
+
+                    _user = user;
                 }
             }
         }
@@ -191,7 +195,7 @@ namespace Rosmery.Security.STS.Data
                     },
                     Properties = new Dictionary<string, string>()
                     {
-                        { "IsManagementApp", "Y" }
+                        { "SegurityAdministratorId", _user.Id.ToString() }
                     }
                     
 

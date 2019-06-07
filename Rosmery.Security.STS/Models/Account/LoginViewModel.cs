@@ -10,6 +10,7 @@ namespace Rosmery.Security.STS.Models
     {
         public bool AllowRememberLogin { get; set; }
         public bool EnableLocalLogin { get; set; }
+        public bool IsManagementApplication { get; set; }
 
         public IEnumerable<ExternalProvider> ExternalProviders { get; set; }
         public IEnumerable<ExternalProvider> VisibleExternalProviders => ExternalProviders.Where(x => !string.IsNullOrWhiteSpace(x.DisplayName));

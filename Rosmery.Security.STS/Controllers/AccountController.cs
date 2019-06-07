@@ -70,8 +70,6 @@ namespace Rosmery.Security.STS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
-
-
             if (button != "login")
             {
                 // the user clicked the "cancel" button
@@ -227,6 +225,19 @@ namespace Rosmery.Security.STS.Controllers
 
         }
 
+        private async Task<bool> IsManagementApplication(string returnUrl)
+        {
+            //Validate if is a management app
+            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            if (context != null)
+            {
+                var client = await _clientStore.FindClientByIdAsync(context.ClientId);
+                return !string.IsNullOrEmpty(client.Properties["SegurityAdministratorId"]);
+            }
+
+            return false;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Register(string returnUrl = null)
         {
@@ -241,6 +252,7 @@ namespace Rosmery.Security.STS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
+
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
@@ -460,8 +472,11 @@ namespace Rosmery.Security.STS.Controllers
                 }).ToList();
 
             var allowLocal = false;
+            var isManagementApp = false;
             if (context?.ClientId != null)
             {
+
+
                 var client = await _clientStore.FindEnabledClientByIdAsync(context.ClientId);
                 if (client != null)
                 {
@@ -471,7 +486,11 @@ namespace Rosmery.Security.STS.Controllers
                     {
                         providers = providers.Where(provider => client.IdentityProviderRestrictions.Contains(provider.AuthenticationScheme)).ToList();
                     }
+
+                    isManagementApp = !string.IsNullOrEmpty(client.Properties["SegurityAdministratorId"]);
                 }
+
+                
             }
 
             return new LoginViewModel
@@ -480,7 +499,8 @@ namespace Rosmery.Security.STS.Controllers
                 EnableLocalLogin = allowLocal && AccountOptions.AllowLocalLogin,
                 ReturnUrl = returnUrl,
                 Username = context?.LoginHint,
-                ExternalProviders = providers.ToArray()
+                ExternalProviders = providers.ToArray(),
+                IsManagementApplication = isManagementApp
             };
         }
 

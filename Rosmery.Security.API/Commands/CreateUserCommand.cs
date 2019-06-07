@@ -28,5 +28,6 @@ namespace Rosmery.Security.API.Commands
 
         [Required]
         public string RoleId { get; set; }
+
     }
 }
