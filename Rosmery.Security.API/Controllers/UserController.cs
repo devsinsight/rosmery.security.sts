@@ -116,7 +116,8 @@ namespace Rosmery.Security.API.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             var roles = await _userManager.GetRolesAsync(user);
 
-            await _userManager.RemoveFromRoleAsync(user, roles[0]);
+            if(roles.Count() > 0)
+                await _userManager.RemoveFromRoleAsync(user, roles[0]);
             await _userManager.DeleteAsync(user);
         }
     }
