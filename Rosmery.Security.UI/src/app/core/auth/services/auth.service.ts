@@ -81,7 +81,7 @@ export class AuthService {
         post_logout_redirect_uri: environment.baseUrl + '/signout-callback',
         silent_redirect_uri: environment.baseUrl +  '/silent-renew-callback',
         response_type: 'id_token token',
-        scope: 'openid profile rosmery-security-api',
+        scope: 'openid profile rosmery-security-api aa',
         filterProtocolClaims: true, 
         loadUserInfo: true,
         automaticSilentRenew: true,

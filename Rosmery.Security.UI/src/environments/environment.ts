@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   baseSeurityApiUrl: "https://localhost:44390",
   baseSeguritySTSUrl: "https://localhost:44356",
-  baseUrl: "http://localhost:4200"
+  baseUrl: "http://localhost:3000"
 };
 
 /*

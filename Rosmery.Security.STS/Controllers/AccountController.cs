@@ -112,7 +112,7 @@ namespace Rosmery.Security.STS.Controllers
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByNameAsync(model.Username);
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.UserName));
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, "c08cb766-74d0-4f34-af12-c2e0d8d96ac3", user.UserName));
 
                     // make sure the returnUrl is still valid, and if so redirect back to authorize endpoint or a local page
                     // the IsLocalUrl check is only necessary if you want to support additional local pages, otherwise IsValidReturnUrl is more strict

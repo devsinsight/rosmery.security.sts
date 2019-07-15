@@ -19,6 +19,7 @@ namespace Rosmery.Security.Identity.Managers
             _passwordHasher = passwordHasher;
         }
 
+
         public async Task<bool> ValidateUserAsync(T user, string password)
         {
             return await Task.FromResult(PasswordVerificationResult.Success == _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password));

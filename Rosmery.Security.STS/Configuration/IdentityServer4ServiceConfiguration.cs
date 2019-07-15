@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IdentityServer4.Services;
+using IdentityServer4.Validation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Rosmery.Security.Identity.Models;
 using System.Security.Cryptography.X509Certificates;
@@ -9,6 +11,7 @@ namespace Rosmery.Security.STS.Configuration
     {
         public static void AddIdentityServerServiceConfiguration(this IServiceCollection services, string assemblyName, string connectionString, string securitySchema, X509Certificate2 certification = null)
         {
+
             services
                 .AddIdentityServer(options =>
                 {
@@ -41,8 +44,13 @@ namespace Rosmery.Security.STS.Configuration
                 .AddAuthorizeInteractionResponseGenerator<CustomAuthorizeInteractionResponseGenerator>()
                 .AddCustomAuthorizeRequestValidator<CustomAuthorizeRequestValidator>()
                 .AddCustomTokenRequestValidator<CustomTokenRequestValidator>()
-                .AddProfileService<CustomProfileService>()
-                .AddAspNetIdentity<User>();
+                .AddAspNetIdentity<User>()
+                .AddProfileService<CustomProfileService>();
+
+
+
+
         }
+
     }
 }

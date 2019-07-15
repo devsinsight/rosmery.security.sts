@@ -32,7 +32,8 @@ namespace Rosmery.Security.Identity.Configuration
                 .AddEntityFrameworkStores<SecurityDbContext>()
                 .AddDefaultTokenProviders()
                 .AddUserManager<SecurityUserManager<User>>()
-                .AddRoleManager<SecurityRoleManager<Role>>();
+                .AddRoleManager<SecurityRoleManager<Role>>()
+                .AddSignInManager<SecuritySignInManager<User>>();
 
         }
     }
