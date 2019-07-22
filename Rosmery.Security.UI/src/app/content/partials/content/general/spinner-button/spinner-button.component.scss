@@ -1,5 +1,5 @@
 :host {
-	button /deep/ .mat-button-wrapper {
+	button ::ng-deep .mat-button-wrapper {
 		display: flex;
 		align-items: center;
 		justify-content: center;

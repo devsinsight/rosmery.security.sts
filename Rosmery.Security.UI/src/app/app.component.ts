@@ -28,7 +28,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 	@HostBinding('style') style: any;
 	@HostBinding('class') classes: any = '';
 
-	@ViewChild('splashScreen', {read: ElementRef})
+	@ViewChild('splashScreen', { read: ElementRef, static: true })
 	splashScreen: ElementRef;
 	splashScreenImage: string;
 

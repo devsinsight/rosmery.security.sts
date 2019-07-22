@@ -21,12 +21,12 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				loadChildren: './components/dashboard/dashboard.module#DashboardModule',
+				loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule),
 				canActivate: [AuthGuardService]
 			},
 			{
 				path: 'builder',
-				loadChildren: './builder/builder.module#BuilderModule',
+				loadChildren: () => import('./builder/builder.module').then(m => m.BuilderModule),
 				canActivate: [AuthGuardService]
 			},
 			{
@@ -46,12 +46,12 @@ const routes: Routes = [
 			},
 			{
 				path: 'user', 
-				loadChildren: './user/user.module#UserModule',
+				loadChildren: () => import('./user/user.module').then(m => m.UserModule),
 				canActivate: [AuthGuardService]
 			},
 			{
 				path: 'role', 
-				loadChildren: './role/role.module#RoleModule',
+				loadChildren: () => import('./role/role.module').then(m => m.RoleModule),
 				canActivate: [AuthGuardService]
 			}
 		]

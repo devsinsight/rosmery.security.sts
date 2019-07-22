@@ -12,7 +12,7 @@ import { LayoutConfig } from '../../../config/layout';
 })
 export class BuilderComponent implements OnInit {
 	@Input() model: any;
-	@ViewChild('builderForm') form: NgForm;
+	@ViewChild('builderForm', { static: true }) form: NgForm;
 
 	constructor(
 		private layoutConfigService: LayoutConfigService,

@@ -34,8 +34,8 @@ export class PagesComponent implements OnInit, AfterViewInit {
 	// class for the header container
 	pageBodyClass$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-	@ViewChild('mContentWrapper') contenWrapper: ElementRef;
-	@ViewChild('mContent') mContent: ElementRef;
+	@ViewChild('mContentWrapper', { static: false }) contenWrapper: ElementRef;
+	@ViewChild('mContent', { static: false }) mContent: ElementRef;
 
 	constructor(
 		private el: ElementRef,

@@ -19,7 +19,7 @@ import { environment } from '../../../../environments/environment';
 export class SigninCallbackComponent implements OnInit {
 
   @HostBinding('style') style: any;
-  @ViewChild('splashScreen', {read: ElementRef})
+  @ViewChild('splashScreen', { read: ElementRef, static: true })
 	splashScreen: ElementRef;
 	splashScreenImage: string;
 

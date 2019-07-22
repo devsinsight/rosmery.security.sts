@@ -19,7 +19,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
 
-	@ViewChild('mHeader') mHeader: ElementRef;
+	@ViewChild('mHeader', { static: true }) mHeader: ElementRef;
 
 	constructor(
 		private router: Router,
