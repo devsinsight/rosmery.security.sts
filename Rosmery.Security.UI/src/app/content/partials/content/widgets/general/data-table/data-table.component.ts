@@ -26,8 +26,8 @@ export class DataTableComponent implements OnInit {
 	displayedColumns = ['id', 'cManufacture',
 		'cModel', 'cModelYear', 'cMileage', 'cColor', 'cPrice', 'cCondition', 'cStatus', 'actions'];
 
-	@ViewChild(MatPaginator) paginator: MatPaginator;
-	@ViewChild(MatSort) sort: MatSort;
+	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+	@ViewChild(MatSort, { static: true }) sort: MatSort;
 	selection = new SelectionModel<DataTableItemModel>(true, []);
 
 	constructor(private dataTableService: DataTableService) {}

@@ -27,10 +27,10 @@ export class RoleManagementComponent implements OnInit {
 
 	dataSource: RoleDataSource;
 	displayedColumns = ['select', 'name', 'hasUsers', 'actions'];
-	@ViewChild(MatPaginator) paginator: MatPaginator;
-	@ViewChild(MatSort) sort: MatSort;
+	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+	@ViewChild(MatSort, { static: true }) sort: MatSort;
 
-	@ViewChild('searchInput') searchInput: ElementRef;
+	@ViewChild('searchInput', { static: true }) searchInput: ElementRef;
 	filterStatus: string = '';
 	filterType: string = '';
 

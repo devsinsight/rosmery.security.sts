@@ -12,11 +12,11 @@ export class PortletComponent implements OnInit, AfterViewInit {
 	@Input() loading$: Observable<boolean>;
 	@Input() options: any;
 
-	@ViewChild('mPortlet') elPortlet: ElementRef;
-	@ViewChild('mPortletHead') elHead: ElementRef;
-	@ViewChild('mPortletBody') elBody: ElementRef;
-	@ViewChild('mPortletFooter') elFooter: ElementRef;
-	@ViewChild('mPortletHeadTools') elHeadTools: ElementRef;
+	@ViewChild('mPortlet', { static: true }) elPortlet: ElementRef;
+	@ViewChild('mPortletHead', { static: true }) elHead: ElementRef;
+	@ViewChild('mPortletBody', { static: true }) elBody: ElementRef;
+	@ViewChild('mPortletFooter', { static: true }) elFooter: ElementRef;
+	@ViewChild('mPortletHeadTools', { static: true }) elHeadTools: ElementRef;
 
 	constructor(public loader: LoadingBarService) {
 		this.loader.complete();

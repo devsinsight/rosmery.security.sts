@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
 	@Input() avatar: string = './assets/app/media/img/users/user4.jpg';
 	@Input() avatarBg: SafeStyle = '';
 
-	@ViewChild('mProfileDropdown') mProfileDropdown: ElementRef;
+	@ViewChild('mProfileDropdown', { static: true }) mProfileDropdown: ElementRef;
 
 	constructor (
 		private router: Router,
