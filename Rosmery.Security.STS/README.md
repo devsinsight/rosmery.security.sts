@@ -21,3 +21,9 @@
 
 	dotnet ef database update --context PersistedGrantDbContext
 	dotnet ef database update --context ConfigurationDbContext
+
+#Updated
+	Current version is deploying the database automatically in the first load. Please make sure the following:
+		1. Open SQL Server Configuration Manager
+		2. Select "SQL Server Network Configuration" > "Protocols for MSSQLSERVER"
+		3. Edit "TCP/IP" properties, and change "Enabled" to "Yes"
